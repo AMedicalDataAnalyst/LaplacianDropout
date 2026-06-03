@@ -1,0 +1,13 @@
+compare_methods | methods=['ipmix', 'band_drop_all+ipmix'] runs=3 max_epochs=40 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+ipmix                      0    0.8848    0.2013    0.6461    0.6980   40
+ipmix                      1    0.8813    0.2015    0.6397    0.6936   40
+ipmix                      2    0.8836    0.2489    0.6930    0.7089   40
+band_drop_all+ipmix        0    0.8935    0.5439    0.8492    0.7118   40
+band_drop_all+ipmix        1    0.8874    0.5475    0.8474    0.7154   40
+band_drop_all+ipmix        2    0.8889    0.5496    0.8476    0.7270   40
+Wrote comparison_ipmix.json

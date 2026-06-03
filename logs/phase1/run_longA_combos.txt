@@ -1,0 +1,38 @@
+=== Stage 1: band_drop_all+augmix, max 80 epochs ===
+compare_methods | methods=['band_drop_all+augmix'] runs=3 max_epochs=80 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all+augmix       0    0.8596    0.5832    0.8456    0.7894   58
+band_drop_all+augmix       1    0.8662    0.5763    0.8489    0.7926   55
+band_drop_all+augmix       2    0.8650    0.5659    0.8476    0.7835   52
+Wrote comparison_longA_bd_augmix_s1.json
+=== Stage 2 seed 0 ===
+compare_methods | methods=['baseline'] runs=1 max_epochs=30 jsd=False
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+baseline                   0    0.8879    0.5837    0.8660    0.8003   25
+Wrote comparison_longA_bd_augmix_s2_r0.json
+=== Stage 2 seed 1 ===
+compare_methods | methods=['baseline'] runs=1 max_epochs=30 jsd=False
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+baseline                   0    0.8887    0.5750    0.8703    0.8047   20
+Wrote comparison_longA_bd_augmix_s2_r1.json
+=== Stage 2 seed 2 ===
+compare_methods | methods=['baseline'] runs=1 max_epochs=30 jsd=False
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+baseline                   0    0.8810    0.5590    0.8629    0.7963   20
+Wrote comparison_longA_bd_augmix_s2_r2.json

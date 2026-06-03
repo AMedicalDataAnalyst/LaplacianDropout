@@ -1,0 +1,12 @@
+
+=== checkpoints/baseline_r0.pt -> imagenette_results_FULL_224_baseline_r0.json ===
+    glass_blur sev1: acc=0.7544  (834s)
+    glass_blur sev3: acc=0.3903  (1405s)
+    glass_blur sev5: acc=0.3345  (920s)
+  merged. new mean (15 corruptions) = 0.5732
+
+=== checkpoints/band_drop_all_augmix_r0.pt -> imagenette_results_FULL_224_bd_augmix_r0.json ===
+    glass_blur sev1: acc=0.8976  (957s)
+    glass_blur sev3: acc=0.8268  (1414s)
+    glass_blur sev5: acc=0.7664  (912s)
+  merged. new mean (15 corruptions) = 0.8200

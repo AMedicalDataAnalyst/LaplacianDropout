@@ -1,0 +1,9 @@
+Overriding ic.LEVELS = 5 (band count = 6)
+compare_methods | methods=['band_drop_all_keep1'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all_keep1        0    0.8805    0.7088    0.8726    0.7979   49
+Wrote band_keep1_224.json

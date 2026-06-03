@@ -1,0 +1,132 @@
+=== extralongA seed 0: stage1 (max 120) ===
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['band_drop_all']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+band_drop_all            0    0.8561    0.4818    0.8326    0.7316    77   252.56
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1045: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1046: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1047: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+band_drop_all              0.8561 ±    nan      0.4818 ±    nan      0.8326 ±    nan      0.3743
+
+Wrote raw results to imagenette_results_extralongA_s1_seed0.json
+=== extralongA seed 0: stage2 ===
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['baseline']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/extralongA_s1_seed0.pt (reported val_acc 0.8560509554140128)
+Skipping model reset; effective LR = 0.00030000000000000003
+baseline                 0    0.8803    0.4166    0.8466    0.7407    36    82.14
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1045: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1046: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1047: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+baseline                   0.8803 ±    nan      0.4166 ±    nan      0.8466 ±    nan      0.4637
+
+Wrote raw results to imagenette_results_extralongA_s2_seed0.json
+=== extralongA seed 1: stage1 (max 120) ===
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['band_drop_all']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+band_drop_all            0    0.8558    0.5106    0.8436    0.7679    77   253.60
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1045: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1046: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1047: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+band_drop_all              0.8558 ±    nan      0.5106 ±    nan      0.8436 ±    nan      0.3452
+
+Wrote raw results to imagenette_results_extralongA_s1_seed1.json
+=== extralongA seed 1: stage2 ===
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['baseline']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/extralongA_s1_seed1.pt (reported val_acc 0.855796178343949)
+Skipping model reset; effective LR = 0.00030000000000000003
+baseline                 0    0.8759    0.3944    0.8512    0.7589    33    75.08
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1045: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1046: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1047: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+baseline                   0.8759 ±    nan      0.3944 ±    nan      0.8512 ±    nan      0.4815
+
+Wrote raw results to imagenette_results_extralongA_s2_seed1.json
+=== extralongA seed 2: stage1 (max 120) ===
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['band_drop_all']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+band_drop_all            0    0.8698    0.5350    0.8492    0.7519    82   270.28
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1045: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1046: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1047: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+band_drop_all              0.8698 ±    nan      0.5350 ±    nan      0.8492 ±    nan      0.3348
+
+Wrote raw results to imagenette_results_extralongA_s1_seed2.json
+=== extralongA seed 2: stage2 ===
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['baseline']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/extralongA_s1_seed2.pt (reported val_acc 0.8698089171974522)
+Skipping model reset; effective LR = 0.00030000000000000003
+baseline                 0    0.8808    0.4683    0.8578    0.7601    33    75.17
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1045: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1046: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:1047: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+baseline                   0.8808 ±    nan      0.4683 ±    nan      0.8578 ±    nan      0.4125
+
+Wrote raw results to imagenette_results_extralongA_s2_seed2.json

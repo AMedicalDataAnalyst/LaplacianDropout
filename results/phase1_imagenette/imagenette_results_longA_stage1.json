@@ -1,0 +1,1208 @@
+[
+  {
+    "variant": "band_drop_all",
+    "engine": "plateau",
+    "total_epochs": 70,
+    "val_acc": 0.876687898089172,
+    "val_acc_residual_at_test": 0.5663694267515924,
+    "val_acc_blur_at_test": 0.8598726114649682,
+    "time_seconds": 230.739390625,
+    "history": [
+      {
+        "global_epoch": 0,
+        "phase_idx": 0,
+        "epoch_in_phase": 0,
+        "val_acc": 0.2226751592356688,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0015
+      },
+      {
+        "global_epoch": 1,
+        "phase_idx": 0,
+        "epoch_in_phase": 1,
+        "val_acc": 0.2624203821656051,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.003
+      },
+      {
+        "global_epoch": 2,
+        "phase_idx": 0,
+        "epoch_in_phase": 2,
+        "val_acc": 0.5184713375796178,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0029988165934668005
+      },
+      {
+        "global_epoch": 3,
+        "phase_idx": 0,
+        "epoch_in_phase": 3,
+        "val_acc": 0.4726114649681529,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0029952023292486325
+      },
+      {
+        "global_epoch": 4,
+        "phase_idx": 0,
+        "epoch_in_phase": 4,
+        "val_acc": 0.6015286624203822,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0029891628413846764
+      },
+      {
+        "global_epoch": 5,
+        "phase_idx": 0,
+        "epoch_in_phase": 5,
+        "val_acc": 0.618343949044586,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002980707925946334
+      },
+      {
+        "global_epoch": 6,
+        "phase_idx": 0,
+        "epoch_in_phase": 6,
+        "val_acc": 0.7016560509554141,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002969851296837363
+      },
+      {
+        "global_epoch": 7,
+        "phase_idx": 0,
+        "epoch_in_phase": 7,
+        "val_acc": 0.6535031847133758,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002956610563549881
+      },
+      {
+        "global_epoch": 8,
+        "phase_idx": 0,
+        "epoch_in_phase": 8,
+        "val_acc": 0.6313375796178344,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002941007202601699
+      },
+      {
+        "global_epoch": 9,
+        "phase_idx": 0,
+        "epoch_in_phase": 9,
+        "val_acc": 0.6644585987261147,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002923066522701334
+      },
+      {
+        "global_epoch": 10,
+        "phase_idx": 0,
+        "epoch_in_phase": 10,
+        "val_acc": 0.6644585987261147,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002902817623697192
+      },
+      {
+        "global_epoch": 11,
+        "phase_idx": 0,
+        "epoch_in_phase": 11,
+        "val_acc": 0.7133757961783439,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002880293349377504
+      },
+      {
+        "global_epoch": 12,
+        "phase_idx": 0,
+        "epoch_in_phase": 12,
+        "val_acc": 0.7286624203821656,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0028555302341975856
+      },
+      {
+        "global_epoch": 13,
+        "phase_idx": 0,
+        "epoch_in_phase": 13,
+        "val_acc": 0.7245859872611465,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002828568444020813
+      },
+      {
+        "global_epoch": 14,
+        "phase_idx": 0,
+        "epoch_in_phase": 14,
+        "val_acc": 0.7184713375796178,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002799451710969449
+      },
+      {
+        "global_epoch": 15,
+        "phase_idx": 0,
+        "epoch_in_phase": 15,
+        "val_acc": 0.7373248407643312,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0027682272624909784
+      },
+      {
+        "global_epoch": 16,
+        "phase_idx": 0,
+        "epoch_in_phase": 16,
+        "val_acc": 0.7549044585987261,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002734945744755017
+      },
+      {
+        "global_epoch": 17,
+        "phase_idx": 0,
+        "epoch_in_phase": 17,
+        "val_acc": 0.7757961783439491,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0026996611405050385
+      },
+      {
+        "global_epoch": 18,
+        "phase_idx": 0,
+        "epoch_in_phase": 18,
+        "val_acc": 0.7584713375796178,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0026624306814981673
+      },
+      {
+        "global_epoch": 19,
+        "phase_idx": 0,
+        "epoch_in_phase": 19,
+        "val_acc": 0.7770700636942676,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0026233147556750593
+      },
+      {
+        "global_epoch": 20,
+        "phase_idx": 0,
+        "epoch_in_phase": 20,
+        "val_acc": 0.7406369426751592,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.00258237680921044
+      },
+      {
+        "global_epoch": 21,
+        "phase_idx": 0,
+        "epoch_in_phase": 21,
+        "val_acc": 0.8017834394904458,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0025396832436031806
+      },
+      {
+        "global_epoch": 22,
+        "phase_idx": 0,
+        "epoch_in_phase": 22,
+        "val_acc": 0.8048407643312102,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.00249530330797282
+      },
+      {
+        "global_epoch": 23,
+        "phase_idx": 0,
+        "epoch_in_phase": 23,
+        "val_acc": 0.7923566878980892,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0024493089867372417
+      },
+      {
+        "global_epoch": 24,
+        "phase_idx": 0,
+        "epoch_in_phase": 24,
+        "val_acc": 0.8127388535031848,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002401774882853685
+      },
+      {
+        "global_epoch": 25,
+        "phase_idx": 0,
+        "epoch_in_phase": 25,
+        "val_acc": 0.8267515923566879,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0023527780968124745
+      },
+      {
+        "global_epoch": 26,
+        "phase_idx": 0,
+        "epoch_in_phase": 26,
+        "val_acc": 0.8160509554140127,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002302398101579743
+      },
+      {
+        "global_epoch": 27,
+        "phase_idx": 0,
+        "epoch_in_phase": 27,
+        "val_acc": 0.8022929936305733,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0022507166136919916
+      },
+      {
+        "global_epoch": 28,
+        "phase_idx": 0,
+        "epoch_in_phase": 28,
+        "val_acc": 0.8050955414012739,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0021978174607115656
+      },
+      {
+        "global_epoch": 29,
+        "phase_idx": 0,
+        "epoch_in_phase": 29,
+        "val_acc": 0.8206369426751592,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002143786445258044
+      },
+      {
+        "global_epoch": 30,
+        "phase_idx": 0,
+        "epoch_in_phase": 30,
+        "val_acc": 0.8389808917197452,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.002088711205836076
+      },
+      {
+        "global_epoch": 31,
+        "phase_idx": 0,
+        "epoch_in_phase": 31,
+        "val_acc": 0.806624203821656,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0020326810746854078
+      },
+      {
+        "global_epoch": 32,
+        "phase_idx": 0,
+        "epoch_in_phase": 32,
+        "val_acc": 0.827515923566879,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0019757869328836594
+      },
+      {
+        "global_epoch": 33,
+        "phase_idx": 0,
+        "epoch_in_phase": 33,
+        "val_acc": 0.8160509554140127,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0019181210629368867
+      },
+      {
+        "global_epoch": 34,
+        "phase_idx": 0,
+        "epoch_in_phase": 34,
+        "val_acc": 0.8145222929936305,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0018597769990970202
+      },
+      {
+        "global_epoch": 35,
+        "phase_idx": 0,
+        "epoch_in_phase": 35,
+        "val_acc": 0.8384713375796178,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0018008493756489637
+      },
+      {
+        "global_epoch": 36,
+        "phase_idx": 0,
+        "epoch_in_phase": 36,
+        "val_acc": 0.8379617834394905,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0017414337734134404
+      },
+      {
+        "global_epoch": 37,
+        "phase_idx": 0,
+        "epoch_in_phase": 37,
+        "val_acc": 0.8415286624203822,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0016816265647145508
+      },
+      {
+        "global_epoch": 38,
+        "phase_idx": 0,
+        "epoch_in_phase": 38,
+        "val_acc": 0.8165605095541402,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0016215247570635111
+      },
+      {
+        "global_epoch": 39,
+        "phase_idx": 0,
+        "epoch_in_phase": 39,
+        "val_acc": 0.8310828025477707,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0015612258358121153
+      },
+      {
+        "global_epoch": 40,
+        "phase_idx": 0,
+        "epoch_in_phase": 40,
+        "val_acc": 0.8336305732484076,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.001500827606031138
+      },
+      {
+        "global_epoch": 41,
+        "phase_idx": 0,
+        "epoch_in_phase": 41,
+        "val_acc": 0.8504458598726115,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0014404280338701518
+      },
+      {
+        "global_epoch": 42,
+        "phase_idx": 0,
+        "epoch_in_phase": 42,
+        "val_acc": 0.8445859872611465,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0013801250876560743
+      },
+      {
+        "global_epoch": 43,
+        "phase_idx": 0,
+        "epoch_in_phase": 43,
+        "val_acc": 0.8476433121019108,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.001320016578988185
+      },
+      {
+        "global_epoch": 44,
+        "phase_idx": 0,
+        "epoch_in_phase": 44,
+        "val_acc": 0.8338853503184713,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0012602000040873504
+      },
+      {
+        "global_epoch": 45,
+        "phase_idx": 0,
+        "epoch_in_phase": 45,
+        "val_acc": 0.8356687898089172,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.001200772385656802
+      },
+      {
+        "global_epoch": 46,
+        "phase_idx": 0,
+        "epoch_in_phase": 46,
+        "val_acc": 0.8407643312101911,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0011418301155109516
+      },
+      {
+        "global_epoch": 47,
+        "phase_idx": 0,
+        "epoch_in_phase": 47,
+        "val_acc": 0.846624203821656,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.00108346879822752
+      },
+      {
+        "global_epoch": 48,
+        "phase_idx": 0,
+        "epoch_in_phase": 48,
+        "val_acc": 0.8585987261146497,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0010257830960765598
+      },
+      {
+        "global_epoch": 49,
+        "phase_idx": 0,
+        "epoch_in_phase": 49,
+        "val_acc": 0.8471337579617835,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0009688665754779088
+      },
+      {
+        "global_epoch": 50,
+        "phase_idx": 0,
+        "epoch_in_phase": 50,
+        "val_acc": 0.8509554140127389,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0009128115552361137
+      },
+      {
+        "global_epoch": 51,
+        "phase_idx": 0,
+        "epoch_in_phase": 51,
+        "val_acc": 0.8596178343949045,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0008577089567989916
+      },
+      {
+        "global_epoch": 52,
+        "phase_idx": 0,
+        "epoch_in_phase": 52,
+        "val_acc": 0.8624203821656051,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0008036481567827103
+      },
+      {
+        "global_epoch": 53,
+        "phase_idx": 0,
+        "epoch_in_phase": 53,
+        "val_acc": 0.858343949044586,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0007507168420025898
+      },
+      {
+        "global_epoch": 54,
+        "phase_idx": 0,
+        "epoch_in_phase": 54,
+        "val_acc": 0.8659872611464968,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0006990008672447647
+      },
+      {
+        "global_epoch": 55,
+        "phase_idx": 0,
+        "epoch_in_phase": 55,
+        "val_acc": 0.8631847133757962,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0006485841160094112
+      },
+      {
+        "global_epoch": 56,
+        "phase_idx": 0,
+        "epoch_in_phase": 56,
+        "val_acc": 0.8672611464968153,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0005995483644513992
+      },
+      {
+        "global_epoch": 57,
+        "phase_idx": 0,
+        "epoch_in_phase": 57,
+        "val_acc": 0.8664968152866243,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.000551973148739074
+      },
+      {
+        "global_epoch": 58,
+        "phase_idx": 0,
+        "epoch_in_phase": 58,
+        "val_acc": 0.8667515923566879,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0005059356360462959
+      },
+      {
+        "global_epoch": 59,
+        "phase_idx": 0,
+        "epoch_in_phase": 59,
+        "val_acc": 0.8705732484076433,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0004615104993870055
+      },
+      {
+        "global_epoch": 60,
+        "phase_idx": 0,
+        "epoch_in_phase": 60,
+        "val_acc": 0.8692993630573248,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.000418769796495321
+      },
+      {
+        "global_epoch": 61,
+        "phase_idx": 0,
+        "epoch_in_phase": 61,
+        "val_acc": 0.8677707006369427,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.00037778285294762904
+      },
+      {
+        "global_epoch": 62,
+        "phase_idx": 0,
+        "epoch_in_phase": 62,
+        "val_acc": 0.8746496815286624,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0003386161497162483
+      },
+      {
+        "global_epoch": 63,
+        "phase_idx": 0,
+        "epoch_in_phase": 63,
+        "val_acc": 0.8690445859872612,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0003013332153370468
+      },
+      {
+        "global_epoch": 64,
+        "phase_idx": 0,
+        "epoch_in_phase": 64,
+        "val_acc": 0.8777070063694268,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.00026599452286592555
+      },
+      {
+        "global_epoch": 65,
+        "phase_idx": 0,
+        "epoch_in_phase": 65,
+        "val_acc": 0.8718471337579617,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0002326573917913024
+      },
+      {
+        "global_epoch": 66,
+        "phase_idx": 0,
+        "epoch_in_phase": 66,
+        "val_acc": 0.8728662420382166,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0002013758950616889
+      },
+      {
+        "global_epoch": 67,
+        "phase_idx": 0,
+        "epoch_in_phase": 67,
+        "val_acc": 0.8771974522292993,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.00017220077137917306
+      },
+      {
+        "global_epoch": 68,
+        "phase_idx": 0,
+        "epoch_in_phase": 68,
+        "val_acc": 0.8749044585987261,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.0001451793429010571
+      },
+      {
+        "global_epoch": 69,
+        "phase_idx": 0,
+        "epoch_in_phase": 69,
+        "val_acc": 0.876687898089172,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "lr": 0.00012035543848314573
+      }
+    ],
+    "phase_summaries": [
+      {
+        "phase_idx": 0,
+        "active_bands": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "dropout_p": 0.0,
+        "epochs": 70,
+        "best_val_acc": 0.8777070063694268,
+        "plateau_hit": true
+      }
+    ],
+    "plateau_params": {
+      "max_warmup_phase": 12,
+      "max_final_phase": 80,
+      "patience": 5,
+      "min_phase": 5,
+      "eps": 0.003,
+      "lr_warmup_epochs": 2,
+      "base_lr": 0.003,
+      "plateau_lr_threshold": 0.3
+    },
+    "run": 0,
+    "corruption": {
+      "gaussian_noise": {
+        "3": 0.652
+      },
+      "shot_noise": {
+        "3": 0.659
+      },
+      "impulse_noise": {
+        "3": 0.624
+      },
+      "defocus_blur": {
+        "3": 0.805
+      },
+      "motion_blur": {
+        "3": 0.774
+      },
+      "zoom_blur": {
+        "3": 0.809
+      },
+      "snow": {
+        "3": 0.648
+      },
+      "frost": {
+        "3": 0.707
+      },
+      "fog": {
+        "3": 0.836
+      },
+      "brightness": {
+        "3": 0.819
+      },
+      "contrast": {
+        "3": 0.837
+      },
+      "elastic_transform": {
+        "3": 0.678
+      },
+      "pixelate": {
+        "3": 0.852
+      },
+      "jpeg_compression": {
+        "3": 0.842
+      },
+      "_mean": 0.753,
+      "_subsample": 1000
+    },
+    "checkpoint": "checkpoints/band_drop_all_r0.pt"
+  }
+]

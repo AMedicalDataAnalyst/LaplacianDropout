@@ -1,0 +1,34 @@
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['cd_p03', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'joint_residual', 'joint_blur']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+cd_p03                   0    0.7651    0.6336    0.7529    0.6576   109   356.97
+cd_p07                   0    0.7386    0.6678    0.7363    0.6505   102   334.54
+cd_p09                   0    0.7284    0.6752    0.7284    0.6516   120   394.41
+cd_p05_noprotect         0    0.7941    0.6199    0.7817    0.7346   105   344.88
+cd_early                 0    0.7470    0.6476    0.7417    0.6612    91   299.17
+band_drop                0    0.8497    0.6036    0.8255    0.7082    47   154.92
+joint_residual           0    0.8084    0.6341    0.5376    0.5761    35   113.35
+joint_blur               0    0.8555    0.1661    0.8326    0.7054    43   105.34
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:898: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:899: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:900: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+cd_p03                     0.7651 ±    nan      0.6336 ±    nan      0.7529 ±    nan      0.1315
+cd_p07                     0.7386 ±    nan      0.6678 ±    nan      0.7363 ±    nan      0.0708
+cd_p09                     0.7284 ±    nan      0.6752 ±    nan      0.7284 ±    nan      0.0532
+cd_p05_noprotect           0.7941 ±    nan      0.6199 ±    nan      0.7817 ±    nan      0.1743
+cd_early                   0.7470 ±    nan      0.6476 ±    nan      0.7417 ±    nan      0.0994
+band_drop                  0.8497 ±    nan      0.6036 ±    nan      0.8255 ±    nan      0.2461
+joint_residual             0.8084 ±    nan      0.6341 ±    nan      0.5376 ±    nan      0.1743
+joint_blur                 0.8555 ±    nan      0.1661 ±    nan      0.8326 ±    nan      0.6894
+
+Wrote raw results to imagenette_results_screening2.json

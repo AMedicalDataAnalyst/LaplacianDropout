@@ -1,0 +1,20 @@
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/baseline_r0.pt (reported val_acc 0.8963057324840764)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/baseline_r0.pt  val_acc=0.8963  res=0.1343  blur=0.5506  corr=0.5790
+Wrote raw results to imagenette_results_FULL_224_baseline_r0.json
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/band_drop_all_augmix_r0.pt (reported val_acc 0.9034394904458599)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/band_drop_all_augmix_r0.pt  val_acc=0.9034  res=0.6973  blur=0.8940  corr=0.8193
+Wrote raw results to imagenette_results_FULL_224_bd_augmix_r0.json

@@ -1,0 +1,32 @@
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=3 variants=['baseline', 'band_drop', 'band_drop_all', 'joint_blur', 'curriculum_dropout']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+baseline                 0    0.8716    0.1327    0.4680    0.4937    40    91.60
+baseline                 1    0.8757    0.1103    0.4790    0.5016    41    93.55
+baseline                 2    0.8762    0.1116    0.4935    0.5154    45   102.10
+band_drop                0    0.8471    0.5893    0.8245    0.6885    43   140.76
+band_drop                1    0.8283    0.5338    0.7936    0.6594    35   114.42
+band_drop                2    0.8545    0.5949    0.8324    0.7034    50   163.86
+band_drop_all            0    0.8678    0.5590    0.8469    0.7128    50   164.22
+band_drop_all            1    0.8716    0.5338    0.8438    0.7083    47   154.18
+band_drop_all            2    0.8622    0.5480    0.8423    0.7166    45   147.75
+joint_blur               0    0.8510    0.1730    0.8255    0.7094    43   104.61
+joint_blur               1    0.8497    0.1575    0.8234    0.7116    42   102.21
+joint_blur               2    0.8497    0.1613    0.8326    0.7056    43   104.57
+curriculum_dropout       0    0.7631    0.6525    0.7534    0.6744   108   352.03
+curriculum_dropout       1    0.7600    0.6489    0.7516    0.6691   102   332.73
+curriculum_dropout       2    0.7582    0.6617    0.7539    0.6706   105   342.86
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+baseline                   0.8745 ± 0.0025      0.1182 ± 0.0126      0.4802 ± 0.0128      0.7563
+band_drop                  0.8433 ± 0.0135      0.5727 ± 0.0338      0.8168 ± 0.0205      0.2707
+band_drop_all              0.8672 ± 0.0047      0.5469 ± 0.0126      0.8443 ± 0.0023      0.3203
+joint_blur                 0.8501 ± 0.0007      0.1639 ± 0.0081      0.8272 ± 0.0048      0.6862
+curriculum_dropout         0.7604 ± 0.0024      0.6544 ± 0.0066      0.7530 ± 0.0012      0.1061
+
+Wrote raw results to imagenette_results_multiseed.json

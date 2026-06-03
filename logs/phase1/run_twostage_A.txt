@@ -1,0 +1,22 @@
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['baseline']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/band_drop_all_r0.pt (reported val_acc 0.8677707006369427)
+Skipping model reset; effective LR = 0.00030000000000000003
+baseline                 0    0.8769    0.3689    0.8329    0.7029    33    75.13
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:968: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:969: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:970: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+baseline                   0.8769 ±    nan      0.3689 ±    nan      0.8329 ±    nan      0.5080
+
+Wrote raw results to imagenette_results_twostage_A.json

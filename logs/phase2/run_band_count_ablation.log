@@ -1,0 +1,73 @@
+======================================================================
+  levels=1  (bands=2)  ->  band_count_ablation_L1_bands2.json
+======================================================================
+Overriding ic.LEVELS = 1 (band count = 2)
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.9050    0.9024    0.8265    0.6562   50
+Wrote band_count_ablation_L1_bands2.json
+======================================================================
+  levels=2  (bands=3)  ->  band_count_ablation_L2_bands3.json
+======================================================================
+Overriding ic.LEVELS = 2 (band count = 3)
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.9045    0.8943    0.8971    0.7187   50
+Wrote band_count_ablation_L2_bands3.json
+======================================================================
+  levels=3  (bands=4)  ->  band_count_ablation_L3_bands4.json
+======================================================================
+Overriding ic.LEVELS = 3 (band count = 4)
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.8938    0.8690    0.8882    0.7839   50
+Wrote band_count_ablation_L3_bands4.json
+======================================================================
+  levels=4  (bands=5)  ->  band_count_ablation_L4_bands5.json
+======================================================================
+Overriding ic.LEVELS = 4 (band count = 5)
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.8935    0.8334    0.8854    0.7918   50
+Wrote band_count_ablation_L4_bands5.json
+======================================================================
+  levels=5  (bands=6)  ->  band_count_ablation_L5_bands6.json
+======================================================================
+Overriding ic.LEVELS = 5 (band count = 6)
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.8856    0.7080    0.8795    0.8019   50
+Wrote band_count_ablation_L5_bands6.json
+======================================================================
+  levels=6  (bands=7)  ->  band_count_ablation_L6_bands7.json
+======================================================================
+Overriding ic.LEVELS = 6 (band count = 7)
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.8838    0.4976    0.8759    0.8038   50
+Wrote band_count_ablation_L6_bands7.json
+BAND_COUNT_ABLATION_DONE

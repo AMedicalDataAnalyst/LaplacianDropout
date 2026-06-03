@@ -1,0 +1,87 @@
+=== No-JSD comparison ===
+compare_methods | methods=['augmix', 'pixmix', 'band_drop_all', 'band_drop_all+augmix'] runs=3 max_epochs=50 jsd=False
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+augmix                     0    0.8797    0.1287    0.5335    0.5609   50
+augmix                     1    0.8792    0.1317    0.5503    0.5720   48
+augmix                     2    0.8854    0.1246    0.5455    0.5403   50
+=== Full eval: AugMix (JSD) ===
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/augmix_r0.pt (reported val_acc 0.8797452229299363)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/augmix_r0.pt  val_acc=0.8797  res=0.1287  blur=0.5335  corr=0.5758
+Wrote raw results to imagenette_results_FULL_augmix_r0.json
+=== Full eval: PixMix (JSD) ===
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/pixmix_r0.pt (reported val_acc 0.855031847133758)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/pixmix_r0.pt  val_acc=0.8550  res=0.2135  blur=0.5997  corr=0.6381
+Wrote raw results to imagenette_results_FULL_pixmix_r0.json
+=== Full eval: IPMix (JSD) ===
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/ipmix_r0.pt (reported val_acc 0.8848407643312102)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/ipmix_r0.pt  val_acc=0.8848  res=0.2013  blur=0.6461  corr=0.6922
+Wrote raw results to imagenette_results_FULL_ipmix_r0.json
+=== Full eval: band_drop_all+augmix (JSD) ===
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py", line 1055, in <module>
+    main()
+    ~~~~^^
+  File "/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py", line 916, in main
+    ckpt = torch.load(args.load_checkpoint, map_location="cuda", weights_only=True)
+  File "/home/joytoy/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 1425, in load
+    with _open_file_like(f, "rb") as opened_file:
+         ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "/home/joytoy/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 751, in _open_file_like
+    return _open_file(name_or_buffer, mode)
+  File "/home/joytoy/miniconda3/lib/python3.13/site-packages/torch/serialization.py", line 732, in __init__
+    super().__init__(open(name, mode))
+                     ~~~~^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'checkpoints/band_drop_all_augmix_r0.pt'
+=== Full eval: band_drop_all+pixmix (JSD) ===
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/band_drop_all_pixmix_r0.pt (reported val_acc 0.8884076433121019)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/band_drop_all_pixmix_r0.pt  val_acc=0.8884  res=0.5768  blur=0.8431  corr=0.7559
+Wrote raw results to imagenette_results_FULL_bd_pixmix_r0.json
+=== Full eval: longA bd+aug → FT (JSD) ===
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/longA_bd_augmix_s2_r0.pt (reported val_acc 0.8878980891719745)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/longA_bd_augmix_s2_r0.pt  val_acc=0.8879  res=0.5837  blur=0.8660  corr=0.7943
+Wrote raw results to imagenette_results_FULL_longA_bd_aug_r0.json

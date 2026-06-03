@@ -1,0 +1,6 @@
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['baseline', 'curriculum_dropout']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------

@@ -1,0 +1,23 @@
+[
+  {
+    "variant": "curriculum",
+    "val_acc": 0.9377999901771545,
+    "val_acc_residual_at_test": 0.1833999902009964,
+    "time_seconds": 689.5461875,
+    "run": 0
+  },
+  {
+    "variant": "curriculum",
+    "val_acc": 0.9368000030517578,
+    "val_acc_residual_at_test": 0.1939999908208847,
+    "time_seconds": 687.7218750000001,
+    "run": 1
+  },
+  {
+    "variant": "curriculum",
+    "val_acc": 0.9348999857902527,
+    "val_acc_residual_at_test": 0.1762000024318695,
+    "time_seconds": 687.9829375,
+    "run": 2
+  }
+]

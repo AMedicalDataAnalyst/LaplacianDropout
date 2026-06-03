@@ -1,0 +1,36 @@
+=== distill_BD_from_baseline (3 seeds) ===
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=3 variants=['band_drop_all']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded distillation teacher from checkpoints/baseline_r1.pt (reported val_acc 0.8756687898089172)
+band_drop_all            0    0.8752    0.5592    0.8520    0.7142    50   193.97
+band_drop_all            1    0.8624    0.5090    0.8380    0.7187    42   162.72
+band_drop_all            2    0.8708    0.5399    0.8527    0.7170    44   170.78
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+band_drop_all              0.8695 ± 0.0065      0.5361 ± 0.0253      0.8476 ± 0.0083      0.3334
+
+Wrote raw results to imagenette_results_distill_BDfromBL.json
+=== distill_baseline_from_longA (3 seeds) ===
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=3 variants=['baseline']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded distillation teacher from checkpoints/longA_s2_seed2.pt (reported val_acc 0.8884076433121019)
+baseline                 0    0.8805    0.1279    0.4983    0.5264    49   141.99
+baseline                 1    0.8757    0.1218    0.4892    0.5162    44   127.40
+baseline                 2    0.8729    0.1134    0.4754    0.5051    45   130.11
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+baseline                   0.8763 ± 0.0039      0.1210 ± 0.0073      0.4876 ± 0.0115      0.7553
+
+Wrote raw results to imagenette_results_distill_BLfromLong.json

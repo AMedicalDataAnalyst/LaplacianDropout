@@ -1,0 +1,107 @@
+[
+  {
+    "variant": "baseline",
+    "val_acc": 0.9362999796867371,
+    "val_acc_residual_at_test": 0.18369999527931213,
+    "time_seconds": 26.117896484375,
+    "run": 0
+  },
+  {
+    "variant": "baseline",
+    "val_acc": 0.9393999576568604,
+    "val_acc_residual_at_test": 0.13989999890327454,
+    "time_seconds": 12.281958984375,
+    "run": 1
+  },
+  {
+    "variant": "baseline",
+    "val_acc": 0.9373999834060669,
+    "val_acc_residual_at_test": 0.17870000004768372,
+    "time_seconds": 12.4470751953125,
+    "run": 2
+  },
+  {
+    "variant": "decompose_identity",
+    "val_acc": 0.936199963092804,
+    "val_acc_residual_at_test": 0.17019999027252197,
+    "time_seconds": 21.19895703125,
+    "run": 0
+  },
+  {
+    "variant": "decompose_identity",
+    "val_acc": 0.9350999593734741,
+    "val_acc_residual_at_test": 0.18069998919963837,
+    "time_seconds": 21.32708984375,
+    "run": 1
+  },
+  {
+    "variant": "decompose_identity",
+    "val_acc": 0.9387999773025513,
+    "val_acc_residual_at_test": 0.17029999196529388,
+    "time_seconds": 21.385203125,
+    "run": 2
+  },
+  {
+    "variant": "curriculum",
+    "val_acc": 0.9089999794960022,
+    "val_acc_residual_at_test": 0.18859998881816864,
+    "time_seconds": 21.41257421875,
+    "run": 0
+  },
+  {
+    "variant": "curriculum",
+    "val_acc": 0.9089999794960022,
+    "val_acc_residual_at_test": 0.2029999941587448,
+    "time_seconds": 21.473904296875002,
+    "run": 1
+  },
+  {
+    "variant": "curriculum",
+    "val_acc": 0.9097999930381775,
+    "val_acc_residual_at_test": 0.1881999969482422,
+    "time_seconds": 21.526779296875,
+    "run": 2
+  },
+  {
+    "variant": "curriculum_dropout",
+    "val_acc": 0.889799952507019,
+    "val_acc_residual_at_test": 0.43779999017715454,
+    "time_seconds": 21.55128515625,
+    "run": 0
+  },
+  {
+    "variant": "curriculum_dropout",
+    "val_acc": 0.8944000005722046,
+    "val_acc_residual_at_test": 0.4333999752998352,
+    "time_seconds": 21.726972656250002,
+    "run": 1
+  },
+  {
+    "variant": "curriculum_dropout",
+    "val_acc": 0.8910999894142151,
+    "val_acc_residual_at_test": 0.43289998173713684,
+    "time_seconds": 21.7267578125,
+    "run": 2
+  },
+  {
+    "variant": "residual_only",
+    "val_acc": 0.1386999934911728,
+    "val_acc_residual_at_test": 0.5938999652862549,
+    "time_seconds": 21.543943359375,
+    "run": 0
+  },
+  {
+    "variant": "residual_only",
+    "val_acc": 0.12029999494552612,
+    "val_acc_residual_at_test": 0.5891000032424927,
+    "time_seconds": 21.58565625,
+    "run": 1
+  },
+  {
+    "variant": "residual_only",
+    "val_acc": 0.12520000338554382,
+    "val_acc_residual_at_test": 0.5934000015258789,
+    "time_seconds": 21.681771484375002,
+    "run": 2
+  }
+]

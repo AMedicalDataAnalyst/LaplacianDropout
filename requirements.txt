@@ -1,0 +1,29 @@
+# Python deps for Phase 2 training + eval.
+#
+# torch + torchvision are pinned separately because they couple to the
+# CUDA version of the rented instance. For 8x A100 80GB with CUDA 12.4:
+#
+#   pip install torch==2.6.0+cu124 torchvision==0.21.0+cu124 \
+#     --index-url https://download.pytorch.org/whl/cu124
+#
+# Then install the rest with:
+#
+#   pip install -r requirements.txt
+#
+# Tested against Python 3.13.
+
+numpy>=2.0          # we rely on np.random.default_rng
+scipy>=1.10
+matplotlib>=3.7     # for figures
+Pillow>=10.0        # image IO
+scikit-image>=0.22  # used internally by imagecorruptions
+
+# Augmentation / corruption / robustness libraries
+imagecorruptions==1.1.2   # Hendrycks corruption code; fallback when no pre-gen tarball
+torchattacks==3.5.1        # PGD / APGD / AutoAttack wrapper for adversarial_eval.py
+
+# pixmix/calibration_tools.py imports cvxpy in tune_temp() only;
+# we never call tune_temp() — calibration_eval.py uses get_measures()
+# which doesn't need cvxpy. Omit unless you specifically want
+# temperature-scaling calibration.
+# cvxpy>=1.4

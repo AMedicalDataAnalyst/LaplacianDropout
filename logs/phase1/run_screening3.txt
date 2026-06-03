@@ -1,0 +1,30 @@
+Imagenette curriculum experiment | engine=plateau epochs=20.0 runs=1 variants=['band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+band_drop_p03            0    0.8476    0.3348    0.8046    0.6870    33   108.34
+band_drop_p07            0    0.7771    0.5957    0.7679    0.6748    34   112.05
+band_drop_all            0    0.8555    0.4721    0.8395    0.7171    39   128.93
+band_drop_all_p07        0    0.8487    0.5633    0.8255    0.6777    49   162.28
+joint_multiblur          0    0.8270    0.1908    0.8104    0.6987    34    95.42
+joint_mix                0    0.8003    0.6675    0.7771    0.6668    42   142.40
+
+==========================================================================================
+variant                             val_acc             res_test            blur_test   shape_gap
+-----------------------------------------------------------------------------------------------
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:943: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  print(f"{variant:<22} {va.mean():>10.4f} ± {va.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:944: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vr.mean():>10.4f} ± {vr.std():>6.4f}  "
+/mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/imagenette_curriculum.py:945: UserWarning: std(): degrees of freedom is <= 0. Correction should be strictly less than the reduction factor (input numel divided by output numel). (Triggered internally at /pytorch/aten/src/ATen/native/ReduceOps.cpp:1831.)
+  f"{vb.mean():>10.4f} ± {vb.std():>6.4f}  {gap:>10.4f}")
+band_drop_p03              0.8476 ±    nan      0.3348 ±    nan      0.8046 ±    nan      0.5129
+band_drop_p07              0.7771 ±    nan      0.5957 ±    nan      0.7679 ±    nan      0.1814
+band_drop_all              0.8555 ±    nan      0.4721 ±    nan      0.8395 ±    nan      0.3834
+band_drop_all_p07          0.8487 ±    nan      0.5633 ±    nan      0.8255 ±    nan      0.2854
+joint_multiblur            0.8270 ±    nan      0.1908 ±    nan      0.8104 ±    nan      0.6362
+joint_mix                  0.8003 ±    nan      0.6675 ±    nan      0.7771 ±    nan      0.1327
+
+Wrote raw results to imagenette_results_screening3.json

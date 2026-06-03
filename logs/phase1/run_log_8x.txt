@@ -1,0 +1,25 @@
+Warming up torch.compile (one-time cost)...
+Warmup complete.
+
+variant                run   val_acc  res_test   time_s
+-------------------------------------------------------
+baseline                 0    0.9388    0.1703    55.47
+baseline                 1    0.9423    0.1707    50.31
+baseline                 2    0.9422    0.1687    50.40
+curriculum               0    0.9246    0.1728    85.96
+curriculum               1    0.9223    0.1800    86.00
+curriculum               2    0.9246    0.1824    85.99
+curriculum_dropout       0    0.9154    0.4764    86.08
+curriculum_dropout       1    0.9124    0.4746    86.08
+curriculum_dropout       2    0.9114    0.4730    86.12
+
+=======================================================
+variant                    val_acc (mean±std)    res_test (mean±std)   shape_gap
+--------------------------------------------------------------------------------
+baseline                   0.9411 ± 0.0020      0.1699 ± 0.0011      0.7712
+curriculum                 0.9238 ± 0.0013      0.1784 ± 0.0050      0.7454
+curriculum_dropout         0.9131 ± 0.0021      0.4747 ± 0.0017      0.4384
+
+Wrote raw results to curriculum_results_8x.json
+Exception ignored in: <_io.BufferedWriter name=6>
+BrokenPipeError: [Errno 32] Broken pipe

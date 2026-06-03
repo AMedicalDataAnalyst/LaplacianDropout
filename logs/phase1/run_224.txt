@@ -1,0 +1,19 @@
+compare_methods | methods=['baseline', 'augmix', 'band_drop_all', 'band_drop_all+augmix'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+baseline                   0    0.8963    0.1343    0.5506    0.5674   46
+baseline                   1    0.8981    0.1259    0.5890    0.5545   49
+baseline                   2    0.9009    0.1409    0.5954    0.5754   49
+augmix                     0    0.9070    0.1592    0.6739    0.7018   50
+augmix                     1    0.9088    0.1432    0.6958    0.7004   49
+augmix                     2    0.9073    0.1562    0.6538    0.6994   50
+band_drop_all              0    0.8912    0.6999    0.8864    0.8051   48
+band_drop_all              1    0.8866    0.7060    0.8787    0.8054   50
+band_drop_all              2    0.8871    0.6999    0.8808    0.8059   48
+band_drop_all+augmix       0    0.9034    0.6973    0.8940    0.8275   50
+band_drop_all+augmix       1    0.8966    0.7009    0.8902    0.8242   48
+band_drop_all+augmix       2    0.8996    0.6963    0.8922    0.8262   50
+Wrote comparison_224_main.json
