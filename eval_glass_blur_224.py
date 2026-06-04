@@ -18,9 +18,13 @@ import imagenette_curriculum as ic
 
 RES, PAD = 224, 16
 SEVERITIES = (1, 3, 5)
+# NOTE: baseline_r0 and band_drop_all_augmix_r0 already have glass_blur
+# merged into their JSONs (Phase 1 completion); only need the new ones.
 JOBS = [
-    ("checkpoints/baseline_r0.pt", "results/phase1_imagenette_full/imagenette_results_FULL_224_baseline_r0.json"),
-    ("checkpoints/band_drop_all_augmix_r0.pt", "results/phase1_imagenette_full/imagenette_results_FULL_224_bd_augmix_r0.json"),
+    ("checkpoints/band_drop_all_hf_only_seed0.pt",
+     "results/phase2_reviewer_defense/imagenette_results_FULL_224_bandmask_hf_only_seed0.json"),
+    ("checkpoints/band_drop_all_lf_only_seed0.pt",
+     "results/phase2_reviewer_defense/imagenette_results_FULL_224_bandmask_lf_only_seed0.json"),
 ]
 
 

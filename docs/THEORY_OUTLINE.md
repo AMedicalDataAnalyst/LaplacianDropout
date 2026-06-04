@@ -70,6 +70,27 @@ Decomposes the effect of view diversity from the JSD itself.
    gradients (∂L/∂x) over the val set. Predicts (H1): band_drop_all
    gradients should have flatter spectrum (broader frequency reliance).
 
+   **DONE (2026-06-04, `gradient_spectrum.py`).** Prediction confirmed.
+   Per-band fraction of |∂L/∂x| energy on Imagenette-224:
+
+   | Band (σ) | baseline | band_drop_all+AugMix | band_drop_all only |
+   |---|---|---|---|
+   | 0 (σ=1, HF) | 0.266 | 0.207 | 0.187 |
+   | 1 (σ=2) | 0.048 | 0.065 | 0.078 |
+   | 2 (σ=4) | 0.022 | 0.033 | 0.043 |
+   | 3 (σ=8) | 0.019 | 0.024 | 0.031 |
+   | 4 (σ=16) | 0.021 | 0.028 | 0.034 |
+   | residual | 0.625 | 0.643 | 0.628 |
+
+   HF concentration ratio (band 0 / band 1): baseline 5.6 → bd+AugMix 3.2
+   → bd-only 2.4. Training with random multi-band dropout *shifts the
+   model's frequency reliance away from the single highest-frequency band
+   toward a flatter mid-frequency distribution* — the model genuinely
+   attends to a different spectral signature.
+
+   Figure: `figures/gradient_spectrum.png`. Data:
+   `results/phase1_ablations/gradient_spectrum.json`.
+
 4. **Match-budget noise control** — Gaussian noise injection at the ℓ2
    budget of an average band-dropped image. If H3 dominates, this matches
    band_drop_all; if H1 dominates, it doesn't.
