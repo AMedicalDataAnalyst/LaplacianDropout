@@ -1,0 +1,12 @@
+
+=== checkpoints/band_drop_all_hf_only_seed0.pt -> results/phase2_reviewer_defense/imagenette_results_FULL_224_bandmask_hf_only_seed0.json ===
+    glass_blur sev1: acc=0.8696  (765s)
+    glass_blur sev3: acc=0.8515  (1125s)
+    glass_blur sev5: acc=0.8087  (689s)
+  merged. new mean (15 corruptions) = 0.7561
+
+=== checkpoints/band_drop_all_lf_only_seed0.pt -> results/phase2_reviewer_defense/imagenette_results_FULL_224_bandmask_lf_only_seed0.json ===
+    glass_blur sev1: acc=0.7758  (759s)
+    glass_blur sev3: acc=0.3386  (1204s)
+    glass_blur sev5: acc=0.2102  (733s)
+  merged. new mean (15 corruptions) = 0.5879

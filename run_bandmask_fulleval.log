@@ -1,0 +1,53 @@
+============================================================
+  2026-06-04T10:28:16+01:00  TRAIN seed 0 with --band-mask hf_only + save ckpt
+============================================================
+Overriding band_mask = 'hf_only'
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.8716    0.1781    0.8718       nan   45
+Wrote /tmp/discard_hf_only.json
+  saved -> checkpoints/band_drop_all_hf_only_seed0.pt
+============================================================
+  2026-06-04T11:48:17+01:00  FULL eval on checkpoints/band_drop_all_hf_only_seed0.pt
+============================================================
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/band_drop_all_hf_only_seed0.pt (reported val_acc 0.8715923566878981)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/band_drop_all_hf_only_seed0.pt  val_acc=0.8716  res=0.1781  blur=0.8718  corr=0.7499
+Wrote raw results to results/phase2_reviewer_defense/imagenette_results_FULL_224_bandmask_hf_only_seed0.json
+============================================================
+  2026-06-04T12:09:53+01:00  TRAIN seed 0 with --band-mask lf_only + save ckpt
+============================================================
+Overriding band_mask = 'lf_only'
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.9014    0.1017    0.6326       nan   46
+Wrote /tmp/discard_lf_only.json
+  saved -> checkpoints/band_drop_all_lf_only_seed0.pt
+============================================================
+  2026-06-04T12:30:53+01:00  FULL eval on checkpoints/band_drop_all_lf_only_seed0.pt
+============================================================
+Imagenette curriculum experiment | engine=fixed epochs=20.0 runs=3 variants=['baseline', 'decompose_identity', 'curriculum', 'curriculum_dropout', 'cd_p03', 'cd_p05', 'cd_p07', 'cd_p09', 'cd_p05_noprotect', 'cd_early', 'band_drop', 'band_drop_p03', 'band_drop_p07', 'band_drop_all', 'band_drop_all_p07', 'joint_residual', 'joint_blur', 'joint_multiblur', 'joint_mix']
+Warming up...
+Warmup complete.
+
+variant                run   val_acc  res_test blur_test corr_mean    ep   time_s
+---------------------------------------------------------------------------------
+Loaded checkpoint checkpoints/band_drop_all_lf_only_seed0.pt (reported val_acc 0.9014012738853503)
+Skipping model reset; effective LR = 0.003
+eval_only checkpoint=checkpoints/band_drop_all_lf_only_seed0.pt  val_acc=0.9014  res=0.1017  blur=0.6326  corr=0.5983
+Wrote raw results to results/phase2_reviewer_defense/imagenette_results_FULL_224_bandmask_lf_only_seed0.json
+BANDMASK_FULLEVAL_DONE  2026-06-04T12:52:27+01:00
