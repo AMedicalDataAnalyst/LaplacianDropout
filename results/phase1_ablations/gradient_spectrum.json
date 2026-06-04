@@ -1,0 +1,62 @@
+{
+  "baseline (r0)": {
+    "fractions": [
+      0.2663964629173279,
+      0.047557562589645386,
+      0.021841062232851982,
+      0.0184865090996027,
+      0.020547186955809593,
+      0.6251711845397949
+    ],
+    "labels": [
+      "band 0 (\u03c3=1)",
+      "band 1 (\u03c3=2)",
+      "band 2 (\u03c3=4)",
+      "band 3 (\u03c3=8)",
+      "band 4 (\u03c3=16)",
+      "residual"
+    ],
+    "n_samples": 2048,
+    "checkpoint": "checkpoints/baseline_r0.pt"
+  },
+  "band_drop_all+AugMix (r0)": {
+    "fractions": [
+      0.20735454559326172,
+      0.06476354598999023,
+      0.03334369137883186,
+      0.023720651865005493,
+      0.027653459459543228,
+      0.6431640982627869
+    ],
+    "labels": [
+      "band 0 (\u03c3=1)",
+      "band 1 (\u03c3=2)",
+      "band 2 (\u03c3=4)",
+      "band 3 (\u03c3=8)",
+      "band 4 (\u03c3=16)",
+      "residual"
+    ],
+    "n_samples": 2048,
+    "checkpoint": "checkpoints/band_drop_all_augmix_r0.pt"
+  },
+  "band_drop_all-only (r0)": {
+    "fractions": [
+      0.18721486628055573,
+      0.07771991193294525,
+      0.042512159794569016,
+      0.030807340517640114,
+      0.033723134547472,
+      0.6280226111412048
+    ],
+    "labels": [
+      "band 0 (\u03c3=1)",
+      "band 1 (\u03c3=2)",
+      "band 2 (\u03c3=4)",
+      "band 3 (\u03c3=8)",
+      "band 4 (\u03c3=16)",
+      "residual"
+    ],
+    "n_samples": 2048,
+    "checkpoint": "checkpoints/band_drop_all_r0.pt"
+  }
+}
