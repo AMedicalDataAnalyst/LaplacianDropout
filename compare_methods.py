@@ -24,9 +24,37 @@ import numpy as np
 
 # Reuse infrastructure from the existing script.
 import imagenette_curriculum as ic
+import subtractive_transforms as st
 
 # Set by main() from --band-mask. Read by apply_method_aug for band_drop_all variants.
 BAND_MASK_OVERRIDE = 'all'
+
+# Subtractive-transform overrides; set by main() from CLI flags.
+BIT_DEPTH_RANGE_OVERRIDE = (2, 5)
+BIT_DEPTH_APPLY_P_OVERRIDE = 1.0
+PCA_DROP_P_OVERRIDE = 0.5
+PCA_MIN_KEPT_OVERRIDE = 1
+PCA_COMPONENT_MASK_OVERRIDE = 'all'
+PCA_APPLY_P_OVERRIDE = 1.0
+
+
+def _bit_depth(inputs):
+    return st._bit_depth_drop(inputs,
+                              bits_range=BIT_DEPTH_RANGE_OVERRIDE,
+                              apply_p=BIT_DEPTH_APPLY_P_OVERRIDE)
+
+
+def _pca_color(inputs):
+    return st._pca_color_drop(inputs,
+                              p=PCA_DROP_P_OVERRIDE,
+                              min_kept=PCA_MIN_KEPT_OVERRIDE,
+                              component_mask=PCA_COMPONENT_MASK_OVERRIDE,
+                              apply_p=PCA_APPLY_P_OVERRIDE)
+
+
+def _band_drop(inputs):
+    return ic._band_dropout(inputs, p=0.5, drop_residual=True,
+                            band_mask=BAND_MASK_OVERRIDE)
 
 torch.backends.cudnn.benchmark = True
 torch.backends.cuda.matmul.allow_tf32 = True
@@ -296,6 +324,34 @@ def apply_method_aug(method: str, inputs: torch.Tensor,
     if method == "band_drop_all+augmix":
         return apply_augmix_batch(ic._band_dropout(inputs, p=0.5, drop_residual=True,
                                                    band_mask=BAND_MASK_OVERRIDE))
+
+    # --- subtractive add-ons (BitDepthReduction, PCAColorDropout) ---
+    # Canonical composition order (mirrors band_drop_all+augmix): innermost first.
+    # band_drop_all -> AugMix -> bit_depth -> pca_color.
+    if method == "bit_depth":
+        return _bit_depth(inputs)
+    if method == "pca_color":
+        return _pca_color(inputs)
+    if method == "bit_depth+pca_color":
+        return _pca_color(_bit_depth(inputs))
+    if method == "band_drop_all+bit_depth":
+        return _bit_depth(_band_drop(inputs))
+    if method == "band_drop_all+pca_color":
+        return _pca_color(_band_drop(inputs))
+    if method == "band_drop_all+bit_depth+pca_color":
+        return _pca_color(_bit_depth(_band_drop(inputs)))
+    if method == "band_drop_all+augmix+bit_depth":
+        return _bit_depth(apply_augmix_batch(_band_drop(inputs)))
+    if method == "band_drop_all+augmix+pca_color":
+        return _pca_color(apply_augmix_batch(_band_drop(inputs)))
+    if method == "band_drop_all+augmix+bit_depth+pca_color":
+        return _pca_color(_bit_depth(apply_augmix_batch(_band_drop(inputs))))
+    if method == "augmix+bit_depth":
+        return _bit_depth(apply_augmix_batch(inputs))
+    if method == "augmix+pca_color":
+        return _pca_color(apply_augmix_batch(inputs))
+    if method == "augmix+bit_depth+pca_color":
+        return _pca_color(_bit_depth(apply_augmix_batch(inputs)))
     if method == "band_drop_all+pixmix":
         return apply_pixmix_batch(
             ic._band_dropout(inputs, p=0.5, drop_residual=True), mix_set)
@@ -450,12 +506,44 @@ def main():
                     "which produced different inits within an invocation but "
                     "non-reproducible across invocations. Default 0 keeps "
                     "the run-0 init close to pre-fix behavior in practice.")
+    # --- Subtractive-transform args (subtractive_transforms.py) ---
+    ap.add_argument("--bit-depth-bits-range", nargs=2, type=int, default=[2, 5],
+                    metavar=('LO', 'HI'),
+                    help="bits sampled uniformly from [LO, HI] inclusive per image "
+                    "for BitDepthReduction (default 2 5).")
+    ap.add_argument("--bit-depth-apply-p", type=float, default=1.0,
+                    help="probability of applying BitDepthReduction per image (default 1.0)")
+    ap.add_argument("--pca-drop-p", type=float, default=0.5,
+                    help="per-component drop probability for PCAColorDropout (default 0.5)")
+    ap.add_argument("--pca-min-kept", type=int, default=1,
+                    help="min components kept per image (default 1; "
+                    "default 1 protects against the ~12.5%% all-dropped event "
+                    "for C=3 at p=0.5)")
+    ap.add_argument("--pca-component-mask", default='all',
+                    choices=['all', 'leading', 'trailing'],
+                    help="which PCA components are droppable; 'all' default, "
+                    "'leading' = top-half (highest variance), 'trailing' = bottom-half")
+    ap.add_argument("--pca-apply-p", type=float, default=1.0,
+                    help="probability of applying PCAColorDropout per image (default 1.0)")
     args = ap.parse_args()
 
     global BAND_MASK_OVERRIDE
+    global BIT_DEPTH_RANGE_OVERRIDE, BIT_DEPTH_APPLY_P_OVERRIDE
+    global PCA_DROP_P_OVERRIDE, PCA_MIN_KEPT_OVERRIDE
+    global PCA_COMPONENT_MASK_OVERRIDE, PCA_APPLY_P_OVERRIDE
     BAND_MASK_OVERRIDE = args.band_mask
+    BIT_DEPTH_RANGE_OVERRIDE = tuple(args.bit_depth_bits_range)
+    BIT_DEPTH_APPLY_P_OVERRIDE = args.bit_depth_apply_p
+    PCA_DROP_P_OVERRIDE = args.pca_drop_p
+    PCA_MIN_KEPT_OVERRIDE = args.pca_min_kept
+    PCA_COMPONENT_MASK_OVERRIDE = args.pca_component_mask
+    PCA_APPLY_P_OVERRIDE = args.pca_apply_p
     if args.band_mask != 'all':
         print(f"Overriding band_mask = {BAND_MASK_OVERRIDE!r}")
+    if any(m in (','.join(args.methods)) for m in ('bit_depth', 'pca_color')):
+        print(f"Subtractive: bit_depth bits={BIT_DEPTH_RANGE_OVERRIDE} apply_p={BIT_DEPTH_APPLY_P_OVERRIDE} "
+              f"| pca p={PCA_DROP_P_OVERRIDE} min_kept={PCA_MIN_KEPT_OVERRIDE} "
+              f"mask={PCA_COMPONENT_MASK_OVERRIDE!r} apply_p={PCA_APPLY_P_OVERRIDE}")
 
     if args.band_levels is not None:
         ic.LEVELS = args.band_levels
