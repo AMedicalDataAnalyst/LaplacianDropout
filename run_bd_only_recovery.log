@@ -1,0 +1,38 @@
+===== 2026-06-04T18:27:50+01:00  retrain band_drop_all seed 0 =====
+compare_methods | methods=['band_drop_all'] runs=1 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.8887    0.7019    0.8813       nan   50
+Wrote /tmp/discard_bd_only.json
+  ckpt saved at checkpoints/band_drop_all_r0.pt
+===== 2026-06-04T19:33:16+01:00  band-targeted PGD on the recovered ckpt =====
+  band-target: none (standard PGD)
+  adv acc = 0.0020
+  band-target: 0
+  adv acc = 0.5980
+  band-target: 1
+  adv acc = 0.7060
+  band-target: 2
+  adv acc = 0.7340
+  band-target: 3
+  adv acc = 0.8660
+  band-target: 4
+  adv acc = 0.9060
+  band-target: 5
+  adv acc = 0.9080
+===== 2026-06-04T19:35:44+01:00  regenerate plot + table =====
+
+model                         none         0         1         2         3         4         5
+----------------------------------------------------------------------------------------------
+baseline                     0.031     0.441     0.796     0.886     0.899     0.911     0.903
+bd_augmix                    0.011     0.648     0.757     0.826     0.882     0.904     0.908
+bd_only                      0.002     0.598     0.706     0.734     0.866     0.906     0.908
+hf_only                      0.022     0.775     0.828     0.772     0.802     0.870     0.866
+lf_only                      0.001     0.050     0.621     0.861     0.899     0.904     0.905
+
+Wrote docs/band_targeted_pgd_table.md
+Wrote /mnt/c/Users/JoyToy/Documents/Projects/laplacian_schedule/figures/band_targeted_pgd.png
+BD_ONLY_RECOVERY_DONE 2026-06-04T19:35:45+01:00
