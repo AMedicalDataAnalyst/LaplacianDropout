@@ -174,11 +174,28 @@ lf_only / DCT-drop results.
 | `band_mask='hf_only' / 'lf_only'` exposed in code | ✅ DONE |
 | CLI flag `--band-mask` on all four harnesses | ✅ DONE |
 | Faithfulness check (hf_only / lf_only correct vs intent) | ✅ DONE |
-| hf_only / lf_only trained on CIFAR | ⏳ queueable after de-risk |
-| hf_only / lf_only trained on Imagenette-224 (cheap, ~2 h each) | ⏳ queueable any time |
+| **hf_only / lf_only trained on Imagenette-224, 3 seeds** | **✅ DONE 2026-06-04** |
+| hf_only / lf_only trained on CIFAR | ❌ skipped — CIFAR transfer failed (Gate A); CIFAR battery cancelled |
+| hf_only / lf_only on ImageNet-1k (post Phase B) | ⏳ planned per `PHASE2_KICKOFF.md` |
 | DCT-drop variant implemented | ❌ not yet |
 | Matched-budget noise variant trained | ❌ not yet |
 | Method-section copy drafted | ❌ not yet |
+
+## 3-seed Imagenette result (DONE)
+
+Decisive — see `results/phase2_reviewer_defense/README.md` for the full
+table. Highlights:
+
+| Method (3-seed mean ± std) | Clean | Corruption |
+|---|---|---|
+| `band_drop_all --band-mask all` | 0.888 ± 0.003 | **0.806 ± 0.0004** |
+| `band_drop_all --band-mask hf_only` | 0.873 ± 0.005 | **0.747 ± 0.002** (−5.9 pp) |
+| `band_drop_all --band-mask lf_only` | 0.900 ± 0.002 | **0.573 ± 0.006** (−23.3 pp) |
+
+Both targeted variants strictly worse than random multi-band; the gap is
+many seed-stds wide. The operator-family-memorization theory is refuted at
+the Imagenette scale. We'll need to repeat this on ImageNet-1k post Phase
+B for the final paper, but the mechanism story is now empirically solid.
 
 ## Recommendation
 

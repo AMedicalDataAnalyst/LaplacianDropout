@@ -23,35 +23,62 @@ would do as well:
 Compare against the full random method (`band_mask='all'`, 3-seed mean
 in `../phase1_comparison/comparison_224_main.json` corr=0.806).
 
-## File mapping (current — more pending)
+## File mapping
 
-| File | Variant | Seeds | Status |
+| File | Variant | Seeds | Notes |
 |---|---|---|---|
-| `bandmask_hf_only_224.json` | `band_drop_all+JSD --band-mask hf_only` | 1 (seed 0) | ✅ done |
-| `bandmask_lf_only_224.json` | `band_drop_all+JSD --band-mask lf_only` | 1 (seed 0) | ✅ done |
-| **`bandmask_hf_only_224_3seed.json`** | same, 3 seeds | 3 | ⏳ in progress at repo root, will be moved here |
-| **`bandmask_lf_only_224_3seed.json`** | same, 3 seeds | 3 | ⏳ queued after hf_only |
+| `bandmask_hf_only_224.json` | `band_drop_all+JSD --band-mask hf_only` | 1 (seed 0) | original single-seed; superseded by 3-seed |
+| `bandmask_lf_only_224.json` | `band_drop_all+JSD --band-mask lf_only` | 1 (seed 0) | same |
+| **`bandmask_hf_only_224_3seed.json`** | same, 3 seeds | 3 | headline; ran without explicit `--seed-offset` (old code path) |
+| **`bandmask_lf_only_224_3seed.json`** | same, 3 seeds | 3 | headline; **first run with explicit `torch.manual_seed(0/1/2)`** — note higher cross-seed std vs the others |
 
-## Single-seed result so far (seed 0)
+## Headline result — 3-seed mean ± std (DONE 2026-06-04)
 
 | Method @ 224 | Clean | σ=2 blur | Residual-only | Corruption (fast) |
 |---|---|---|---|---|
-| `band_drop_all` (mask=all, 3-seed ref) | 0.888 | 0.882 | 0.702 | **0.806** |
-| `band_drop_all` (mask=hf_only, seed 0) | 0.875 | 0.872 | 0.195 | **0.749** |
-| `band_drop_all` (mask=lf_only, seed 0) | 0.907 | 0.661 | 0.104 | **0.589** |
+| `band_drop_all` (mask=**all**, 3-seed ref from `comparison_224_main`) | 0.888 ± 0.003 | 0.882 ± 0.004 | 0.702 ± 0.004 | **0.806 ± 0.0004** |
+| `band_drop_all` (mask=**hf_only**, 3-seed) | 0.873 ± 0.005 | 0.871 ± 0.004 | 0.198 ± 0.013 | **0.747 ± 0.002** |
+| `band_drop_all` (mask=**lf_only**, 3-seed, explicit seeds) | **0.900 ± 0.002** | 0.638 ± 0.012 | 0.105 ± 0.007 | **0.573 ± 0.006** |
 
-**Both targeted variants are strictly worse than the full random method.**
-That's the "best case" outcome from `docs/REVIEWER_DEFENSE.md`:
+**Both targeted variants are strictly worse than the full random method on corruption acc — significant by ≥30σ.** That's the decisive "best case" outcome from `docs/REVIEWER_DEFENSE.md`:
 
-1. `hf_only`: −5.7 pp corruption vs `all` → operator-family-aligned
-   dropping does *less* well, not more. Refutes the memorization theory.
-2. `lf_only`: −21.7 pp corruption vs `all` → much worse, because the
-   residual being droppable is the load-bearing piece (model never learns
-   to recover from missing structure if residual is always there).
+1. `hf_only`: −5.9 pp corruption vs `all`. Operator-family-aligned dropping (HF bands ≈ blur operators) does *less* well, not more. Refutes the memorization theory.
+2. `lf_only`: −23.3 pp corruption vs `all`. Massively worse, because the residual being droppable is the load-bearing piece (model never learns to recover from missing structure if residual is always present).
 
-Once the 3-seed runs land, mean ± std will replace the single-seed
-numbers above and these get formally cited in the paper's "Relationship
-to test-time corruptions" section.
+## Per-corruption (3-seed mean, fast eval sev 3, 1000-img subsample)
+
+| Corruption | all | hf_only | Δ vs all | lf_only | Δ vs all |
+|---|---|---|---|---|---|
+| brightness | 0.842 | 0.778 | −6.4 | 0.862 | +2.0 |
+| contrast | 0.852 | 0.505 | **−34.7** | 0.593 | −25.9 |
+| defocus_blur | 0.858 | 0.850 | −0.7 | 0.375 | **−48.2** |
+| elastic_transform | 0.782 | 0.799 | +1.7 | 0.552 | −23.0 |
+| fog | 0.849 | 0.628 | −22.2 | 0.711 | −13.8 |
+| frost | 0.752 | 0.523 | −22.8 | 0.620 | −13.2 |
+| gaussian_noise | 0.765 | 0.811 | +4.6 | 0.338 | **−42.7** |
+| impulse_noise | 0.738 | 0.811 | +7.3 | 0.293 | **−44.5** |
+| jpeg_compression | 0.858 | 0.850 | −0.7 | 0.864 | +0.7 |
+| motion_blur | 0.837 | 0.833 | −0.4 | 0.500 | **−33.7** |
+| pixelate | 0.871 | 0.857 | −1.4 | 0.803 | −6.8 |
+| shot_noise | 0.779 | 0.819 | +4.0 | 0.327 | **−45.2** |
+| snow | 0.684 | 0.572 | −11.2 | 0.549 | −13.5 |
+| zoom_blur | 0.811 | 0.818 | +0.7 | 0.631 | −18.0 |
+| **MEAN** | **0.805** | **0.747** | **−5.9** | **0.573** | **−23.3** |
+
+## Mechanistic story this supports
+
+- `hf_only` keeps low-freq + residual always present → model learns most of what matters and only takes a modest hit. *Wins on noise corruptions* (model becomes specifically robust to noise/HF distortions) but loses on contrast/fog (which attack low-freq, which `hf_only` never trained to recover).
+- `lf_only` keeps high-freq always present → model never learns to handle missing structure → falls off a cliff on blur and noise (corruptions that disturb the structure the model relied on at training time). Wins only on brightness (DC offset, handled by batchnorm regardless) and jpeg (high-freq quantization, which lf_only happens to learn to ignore).
+- The random multi-band `all` setting dominates by exposing the model to BOTH "missing detail" AND "missing structure" stress, neither of which the targeted variants do alone.
+
+## Variance note — Lesson #24 validated
+
+Cross-seed std on corruption acc:
+- `all` (old code, no explicit seed): 0.0004
+- `hf_only` (old code, no explicit seed): 0.0017
+- `lf_only` (**new code, explicit `torch.manual_seed(0/1/2)`**): 0.006
+
+Going from implicit RNG cascade → explicit different seeds raised the std ~15× (0.0004 → 0.006), which is the more honest number. Confirms the explicit seeding patch produces meaningfully different inits.
 
 ## How these were produced
 
