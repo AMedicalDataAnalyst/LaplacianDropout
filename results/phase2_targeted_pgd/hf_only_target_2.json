@@ -1,0 +1,9 @@
+{
+  "checkpoint": "checkpoints/band_drop_all_hf_only_seed0.pt",
+  "band_target": 2,
+  "eps_255": 4.0,
+  "eps_normalized": 0.06940829549933482,
+  "steps": 20,
+  "subsample": 1000,
+  "adv_acc": 0.772
+}

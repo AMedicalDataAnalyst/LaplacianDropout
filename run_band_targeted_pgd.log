@@ -1,0 +1,99 @@
+===== 2026-06-04T15:36:09+01:00  baseline  target=none =====
+  band-target: none (standard PGD)
+  adv acc = 0.0310
+===== 2026-06-04T15:36:28+01:00  baseline  target=0 =====
+  band-target: 0
+  adv acc = 0.4410
+===== 2026-06-04T15:36:50+01:00  baseline  target=1 =====
+  band-target: 1
+  adv acc = 0.7960
+===== 2026-06-04T15:37:11+01:00  baseline  target=2 =====
+  band-target: 2
+  adv acc = 0.8860
+===== 2026-06-04T15:37:32+01:00  baseline  target=3 =====
+  band-target: 3
+  adv acc = 0.8990
+===== 2026-06-04T15:37:54+01:00  baseline  target=4 =====
+  band-target: 4
+  adv acc = 0.9110
+===== 2026-06-04T15:38:16+01:00  baseline  target=5 =====
+  band-target: 5
+  adv acc = 0.9030
+===== 2026-06-04T15:38:37+01:00  bd_augmix  target=none =====
+  band-target: none (standard PGD)
+  adv acc = 0.0110
+===== 2026-06-04T15:38:55+01:00  bd_augmix  target=0 =====
+  band-target: 0
+  adv acc = 0.6480
+===== 2026-06-04T15:39:17+01:00  bd_augmix  target=1 =====
+  band-target: 1
+  adv acc = 0.7570
+===== 2026-06-04T15:39:38+01:00  bd_augmix  target=2 =====
+  band-target: 2
+  adv acc = 0.8260
+===== 2026-06-04T15:40:00+01:00  bd_augmix  target=3 =====
+  band-target: 3
+  adv acc = 0.8820
+===== 2026-06-04T15:40:22+01:00  bd_augmix  target=4 =====
+  band-target: 4
+  adv acc = 0.9040
+===== 2026-06-04T15:40:43+01:00  bd_augmix  target=5 =====
+  band-target: 5
+  adv acc = 0.9080
+===== 2026-06-04T15:41:05+01:00  bd_only  target=none =====
+  band-target: none (standard PGD)
+===== 2026-06-04T15:41:07+01:00  bd_only  target=0 =====
+  band-target: 0
+===== 2026-06-04T15:41:09+01:00  bd_only  target=1 =====
+  band-target: 1
+===== 2026-06-04T15:41:11+01:00  bd_only  target=2 =====
+  band-target: 2
+===== 2026-06-04T15:41:14+01:00  bd_only  target=3 =====
+  band-target: 3
+===== 2026-06-04T15:41:16+01:00  bd_only  target=4 =====
+  band-target: 4
+===== 2026-06-04T15:41:18+01:00  bd_only  target=5 =====
+  band-target: 5
+===== 2026-06-04T15:41:20+01:00  hf_only  target=none =====
+  band-target: none (standard PGD)
+  adv acc = 0.0220
+===== 2026-06-04T15:41:38+01:00  hf_only  target=0 =====
+  band-target: 0
+  adv acc = 0.7750
+===== 2026-06-04T15:42:00+01:00  hf_only  target=1 =====
+  band-target: 1
+  adv acc = 0.8280
+===== 2026-06-04T15:42:21+01:00  hf_only  target=2 =====
+  band-target: 2
+  adv acc = 0.7720
+===== 2026-06-04T15:42:43+01:00  hf_only  target=3 =====
+  band-target: 3
+  adv acc = 0.8020
+===== 2026-06-04T15:43:04+01:00  hf_only  target=4 =====
+  band-target: 4
+  adv acc = 0.8700
+===== 2026-06-04T15:43:26+01:00  hf_only  target=5 =====
+  band-target: 5
+  adv acc = 0.8660
+===== 2026-06-04T15:43:47+01:00  lf_only  target=none =====
+  band-target: none (standard PGD)
+  adv acc = 0.0010
+===== 2026-06-04T15:44:05+01:00  lf_only  target=0 =====
+  band-target: 0
+  adv acc = 0.0500
+===== 2026-06-04T15:44:27+01:00  lf_only  target=1 =====
+  band-target: 1
+  adv acc = 0.6210
+===== 2026-06-04T15:44:49+01:00  lf_only  target=2 =====
+  band-target: 2
+  adv acc = 0.8610
+===== 2026-06-04T15:45:10+01:00  lf_only  target=3 =====
+  band-target: 3
+  adv acc = 0.8990
+===== 2026-06-04T15:45:32+01:00  lf_only  target=4 =====
+  band-target: 4
+  adv acc = 0.9040
+===== 2026-06-04T15:45:53+01:00  lf_only  target=5 =====
+  band-target: 5
+  adv acc = 0.9050
+BAND_TARGETED_PGD_DONE 2026-06-04T15:46:15+01:00
