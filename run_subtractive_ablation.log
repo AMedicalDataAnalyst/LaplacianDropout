@@ -1,0 +1,38 @@
+============================================================
+  2026-06-04T21:35:19+01:00  band_drop_all+augmix+bit_depth+pca_color  (3 seeds)
+============================================================
+Subtractive: bit_depth bits=(2, 5) apply_p=1.0 | pca p=0.5 min_kept=1 mask='all' apply_p=1.0
+compare_methods | methods=['band_drop_all+augmix+bit_depth+pca_color'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all+augmix+bit_depth+pca_color   0    0.8999    0.4930    0.8739    0.7842   50
+band_drop_all+augmix+bit_depth+pca_color   1    0.9024    0.4856    0.8777    0.7775   49
+band_drop_all+augmix+bit_depth+pca_color   2    0.9047    0.5167    0.8739    0.7798   50
+Wrote results/phase2_subtractive/band_drop_all_p_augmix_p_bit_depth_p_pca_color_224_3seed.json
+============================================================
+  2026-06-05T02:58:23+01:00  band_drop_all+bit_depth+pca_color  (3 seeds)
+============================================================
+Subtractive: bit_depth bits=(2, 5) apply_p=1.0 | pca p=0.5 min_kept=1 mask='all' apply_p=1.0
+compare_methods | methods=['band_drop_all+bit_depth+pca_color'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all+bit_depth+pca_color   0    0.8991    0.4660    0.8775    0.7760   50
+band_drop_all+bit_depth+pca_color   1    0.8978    0.5129    0.8769    0.7720   50
+band_drop_all+bit_depth+pca_color   2    0.8958    0.5032    0.8752    0.7747   50
+Wrote results/phase2_subtractive/band_drop_all_p_bit_depth_p_pca_color_224_3seed.json
+============================================================
+  2026-06-05T08:28:06+01:00  band_drop_all+augmix+bit_depth  (3 seeds)
+============================================================
+Subtractive: bit_depth bits=(2, 5) apply_p=1.0 | pca p=0.5 min_kept=1 mask='all' apply_p=1.0
+compare_methods | methods=['band_drop_all+augmix+bit_depth'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
