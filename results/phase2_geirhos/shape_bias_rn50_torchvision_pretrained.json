@@ -1,0 +1,91 @@
+{
+  "checkpoint": "/tmp/claude-1000/-mnt-c-Users-JoyToy-Documents-Projects-laplacian-schedule/29f83ea0-d6f8-49e2-927d-e6a8b4af4a74/scratchpad/rn50_torchvision_v1.pth",
+  "arch": "resnet50",
+  "n_stimuli": 1200,
+  "shape_correct": 179,
+  "texture_correct": 627,
+  "neither": 394,
+  "shape_bias": 0.22208436724565755,
+  "per_class": {
+    "airplane": {
+      "shape": 2,
+      "texture": 41,
+      "neither": 32
+    },
+    "bear": {
+      "shape": 5,
+      "texture": 38,
+      "neither": 32
+    },
+    "bicycle": {
+      "shape": 13,
+      "texture": 30,
+      "neither": 32
+    },
+    "bird": {
+      "shape": 0,
+      "texture": 49,
+      "neither": 26
+    },
+    "boat": {
+      "shape": 3,
+      "texture": 39,
+      "neither": 33
+    },
+    "bottle": {
+      "shape": 29,
+      "texture": 37,
+      "neither": 9
+    },
+    "car": {
+      "shape": 23,
+      "texture": 35,
+      "neither": 17
+    },
+    "cat": {
+      "shape": 8,
+      "texture": 42,
+      "neither": 25
+    },
+    "chair": {
+      "shape": 4,
+      "texture": 45,
+      "neither": 26
+    },
+    "clock": {
+      "shape": 40,
+      "texture": 14,
+      "neither": 21
+    },
+    "dog": {
+      "shape": 7,
+      "texture": 43,
+      "neither": 25
+    },
+    "elephant": {
+      "shape": 3,
+      "texture": 43,
+      "neither": 29
+    },
+    "keyboard": {
+      "shape": 9,
+      "texture": 49,
+      "neither": 17
+    },
+    "knife": {
+      "shape": 2,
+      "texture": 44,
+      "neither": 29
+    },
+    "oven": {
+      "shape": 8,
+      "texture": 38,
+      "neither": 29
+    },
+    "truck": {
+      "shape": 23,
+      "texture": 40,
+      "neither": 12
+    }
+  }
+}

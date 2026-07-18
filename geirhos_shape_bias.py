@@ -12,17 +12,24 @@ prediction:
 External data needed (download once, no auth):
   - Stimuli:       git clone https://github.com/rgeirhos/texture-vs-shape
                    The cue-conflict images live in
-                   `data-cue-conflict/` (1280 PNGs, filenames encode
-                   `<shape-class>/<image>-<texture-class>.png`).
-  - 16-class map:  the texture-vs-shape repo also provides
-                   `data/imagenet_mapping.txt` or similar — a file that maps
-                   each of the 16 Geirhos classes to the list of ImageNet-1k
-                   class indices that belong to it. Pass via --class-map-json
-                   (we accept a JSON {geirhos_class: [imagenet_idx, ...]}).
+                   `stimuli/style-transfer-preprocessed-512/` (16 class
+                   subdirs, 1280 PNGs total; filenames encode
+                   `<shape-class>N-<texture-class>M.png`).
+  - 16-class map:  run `python make_geirhos_class_map.py
+                   --texture-vs-shape /path/to/texture-vs-shape` to extract
+                   Geirhos's own 16-class -> ImageNet-1k-index mapping into
+                   geirhos_classes_to_imagenet.json (checked in at repo root).
+
+NOTE: this eval needs a model with an ImageNet-1k (1000-class) head. It can
+NOT run meaningfully on the Imagenette checkpoints — only 2 of the 16
+Geirhos classes (dog, truck) exist in Imagenette, leaving ~10 usable
+cue-conflict stimuli. It is part of the Phase-2 battery for ImageNet-1k
+trained models. Harness validated 2026-07-18 against torchvision's
+pretrained ResNet-50 (see results/phase2_geirhos/README.md).
 
 Usage:
   python geirhos_shape_bias.py --checkpoint ckpt.pth --arch resnet50 \\
-      --stimuli-dir /path/to/texture-vs-shape/data-cue-conflict \\
+      --stimuli-dir /path/to/texture-vs-shape/stimuli/style-transfer-preprocessed-512 \\
       --class-map-json geirhos_classes_to_imagenet.json \\
       --out shape_bias.json
 """
@@ -91,11 +98,14 @@ def main():
 
     class_map = load_class_map(args.class_map_json)
     geirhos_classes = sorted(class_map.keys())
-    # For each Geirhos class, indicator vector over the 1000 ImageNet classes.
+    # For each Geirhos class, mean-pooling vector over the 1000 ImageNet
+    # classes. Mean (not sum) matches the canonical decision rule in
+    # texture-vs-shape/code/probabilities_to_decision.py; summing would bias
+    # decisions toward large categories (dog spans 109 classes, knife 1).
     masks = torch.zeros(len(geirhos_classes), 1000, device='cuda')
     for gi, gc in enumerate(geirhos_classes):
         for idx in class_map[gc]:
-            masks[gi, idx] = 1.0
+            masks[gi, idx] = 1.0 / len(class_map[gc])
 
     net = load_model(args.arch, args.checkpoint)
     tf = transforms.Compose([
@@ -131,7 +141,7 @@ def main():
         # For each image, pick the highest *Geirhos-class* score by max-pooling
         # the 1000 logits down to 16 via each class's ImageNet-index mask.
         probs = F.softmax(logits, dim=1)             # (B, 1000)
-        scores = probs @ masks.t()                   # (B, 16) — sum of probs in each Geirhos bucket
+        scores = probs @ masks.t()                   # (B, 16) — mean prob per Geirhos bucket
         preds = scores.argmax(dim=1).tolist()        # predicted Geirhos class
         for j, p in enumerate(preds):
             sh, tx = labels[i + j]
