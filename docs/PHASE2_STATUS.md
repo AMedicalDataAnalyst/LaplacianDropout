@@ -1,4 +1,4 @@
-# Phase 2 — CIFAR + ImageNet scaling (IN PROGRESS)
+# Phase 2 — CIFAR + ImageNet scaling (paused at the ImageNet compute gate)
 
 ## What Phase 2 is
 
@@ -25,8 +25,8 @@ Plus a robustness battery (calibration, adversarial, OOD, shape-bias).
 | 8 | Calibration adapter (`calibration_eval.py`) | DONE |
 | 9 | OOD eval (`ood_eval.py`) for -R/-A/-Sketch | DONE |
 | 10 | Adversarial wrapper (`adversarial_eval.py`) | DONE |
-| 11 | Mechanism / theory writeup | Outline done; analyses pending (need trained 1k model) |
-| 12 | Geirhos cue-conflict runner (`geirhos_shape_bias.py`) | DONE; needs stimuli download |
+| 11 | Mechanism / theory writeup | **3 of 4 figures DONE at 224²** (band-count, gradient spectrum, band-targeted PGD — see `THEORY_OUTLINE.md`); shape-bias figure needs trained 1k model |
+| 12 | Geirhos cue-conflict runner (`geirhos_shape_bias.py`) | **DONE + validated 2026-07-18** — stimuli staged, class map checked in, harness reproduces published RN-50 shape bias (0.222). Science number needs 1k model; see `results/phase2_geirhos/README.md` |
 | 13 | Tier-2 paper writeup | Outline + skeleton in `PAPER_OUTLINE.md`; sections blocked |
 | 14 | Band-count ablation at 224² | DONE (Phase 1.5 — sweep result in `band_count_ablation_L*.json`) |
 | 15 | min_kept=1 ablation | DONE (no improvement — keep original) |
@@ -36,11 +36,15 @@ Plus a robustness battery (calibration, adversarial, OOD, shape-bias).
 | 19 | CIFAR smoke test | DONE |
 | 20 | CIFAR full sweep (5 methods × 2 datasets × 3 seeds) | **GATED on #22 result** |
 | 21 | `cifar_aggregate.py` results aggregator | DONE; writes `docs/CIFAR_RESULTS.md` |
-| 22 | CIFAR de-risk (baseline + combo, 1 seed) | **RUNNING** — baseline done, combo training |
+| 22 | CIFAR de-risk (baseline + combo, 1 seed) | DONE — Gate A **failed** (see below); CIFAR sweep permanently skipped |
 | 23 | Extract CIFAR-C / fractals tarballs | DONE |
 | 24 | Wire cifar_eval to reference -C | DONE |
 | 25 | Re-eval baseline with reference -C | DONE (mean corr acc = 0.7706, comparable to published) |
 | 26 | Repo tidy + Phase 1/2 doc split | DONE (this doc) |
+| 27 | Reviewer-defense hf_only/lf_only, 3 seeds each | **DONE 2026-06-04** — both strictly worse than random `all` (see `results/phase2_reviewer_defense/README.md`) |
+| 28 | Band-targeted PGD sweep (5 models × 7 attacks) | **DONE 2026-06-04** — spectral vulnerability profile (see `results/phase2_targeted_pgd/README.md`) |
+| 29 | Gradient-spectrum mechanism analysis | **DONE 2026-06-04** — HF concentration 5.6 → 3.2 (see `THEORY_OUTLINE.md` exp 3) |
+| 30 | Subtractive-axes ablation (bit_depth, pca_color) | **DONE 2026-06-05** — standalone gains, but stacking interferes; headline recipe unchanged (see `results/phase2_subtractive/README.md`) |
 
 ## De-risk OUTCOME (2026-06-03 07:47) — Gate A FAILED on CIFAR
 
@@ -64,14 +68,19 @@ documented null in the paper rather than a comparison column.
 
 ## Currently running
 
-`run_reviewer_defense.sh` (triggered automatically by `queue_after_derisk.sh`
-when the de-risk JSON landed). State:
-- Imagenette-224 `band_drop_all+JSD --band-mask hf_only` seed 0: ✅
-  done (clean 0.875, corr 0.749) — `bandmask_hf_only_224.json`
-- Imagenette-224 `band_drop_all+JSD --band-mask lf_only` seed 0: 🟡 running
-- **Next (redirected from CIFAR):** 3-seed Imagenette runs for both masks
-  (~6 h total). The 2026-06-03 edit replaced the planned CIFAR hf/lf runs
-  (32 h) with this 6 h Imagenette work since CIFAR transfer failed.
+Nothing. All local (Imagenette-scale) experiments concluded 2026-06-05.
+**The project is paused at the ImageNet gate**: every remaining task
+needs ImageNet-1k data + rented GPU compute. The step-by-step rental
+walkthrough (instance specs, budget, staging, launch commands, decision
+gates) is `docs/PHASE2_KICKOFF.md`; the data shopping list is
+`docs/DATA_SETUP.md`.
+
+Completed since the last version of this section (all at Imagenette-224):
+- Reviewer-defense 3-seed hf_only/lf_only controls (task 27) — decisive.
+- Band-targeted PGD spectral vulnerability profile (task 28).
+- Gradient-spectrum analysis (task 29).
+- Subtractive-axes ablation (task 30) — headline recipe unchanged.
+- Geirhos shape-bias harness staged + validated (task 12).
 
 ## Decision gates and what comes after
 
@@ -152,25 +161,28 @@ comparisons. Cite, don't regenerate.
 | 6 | 7 | 0.884 | 0.804 | 0.498 |
 Saturates at L=5; Pareto knee at L=3.
 
-### Reviewer-defense control (in progress, 1 seed each → 3 seeds queued)
+### Reviewer-defense control — DONE 2026-06-04, 3 seeds each
 | Method | Clean | Corr | Source |
 |---|---|---|---|
-| band_drop_all+JSD `--band-mask all` (3 seeds, ref) | 0.888 | 0.806 | `comparison_224_main.json` |
-| band_drop_all+JSD `--band-mask hf_only` (seed 0) | 0.875 | **0.749** | `bandmask_hf_only_224.json` |
-| band_drop_all+JSD `--band-mask lf_only` (seed 0) | running | running | `bandmask_lf_only_224.json` |
-| Both masks × 3 seeds | TBD | TBD | `bandmask_{hf,lf}_only_224_3seed.json` (queued) |
+| band_drop_all+JSD `--band-mask all` (3 seeds, ref) | 0.888 | **0.806** | `comparison_224_main.json` |
+| band_drop_all+JSD `--band-mask hf_only` (3 seeds) | 0.873 | **0.747** | `bandmask_hf_only_224_3seed.json` |
+| band_drop_all+JSD `--band-mask lf_only` (3 seeds) | 0.900 | **0.573** | `bandmask_lf_only_224_3seed.json` |
+
+Both targeted variants strictly worse than full random on corruption acc
+(≥30σ) — refutes the operator-family-memorization attack. Full analysis:
+`results/phase2_reviewer_defense/README.md`.
 
 ## How to launch the next experiment
 
-### Continue the CIFAR sweep (once de-risk green-lights it)
-```
-bash run_cifar_sweep.sh > run_cifar_sweep.log 2>&1 &
-```
-Per-run results land under `cifar_results/`; `cifar_aggregate.py` is
-called after each, updating `docs/CIFAR_RESULTS.md`.
+### Launch ImageNet-1k training (THE next step; needs rented GPUs + data)
+Follow `docs/PHASE2_KICKOFF.md` top-to-bottom — it is the complete
+rental-instance walkthrough (specs, budget, data staging, pre-flight,
+phase-by-phase launch commands, decision gates, recovery). Dataset
+sources and layout: `docs/DATA_SETUP.md`.
 
-### Launch ImageNet-1k training (once data + GPUs available)
-See exact commands in `docs/DATA_SETUP.md`.
+### CIFAR sweep — do NOT launch
+Gate A failed (see above); the full 30-run CIFAR sweep was deliberately
+skipped. `run_cifar_sweep.sh` is kept only for the record.
 
 ### Re-eval an existing checkpoint with the new reference -C
 ```

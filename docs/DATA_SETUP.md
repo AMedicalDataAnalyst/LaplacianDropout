@@ -11,6 +11,7 @@ it's used for. Run `python check_data.py` after staging to verify.
 |---|---|---|---|
 | Imagenette 320² | `imagenette2-320/` | Phase 1 | already in `train/<wnid>/*.JPEG` layout |
 | **PixMix fractals** | `fractals_and_fvis/fractals/images/` | Phase 2 Phase-D faithful PixMix | 14 248 fractal JPEGs — rsync to the GPU instance |
+| **Geirhos texture-vs-shape** | `texture-vs-shape/` | `geirhos_shape_bias.py` | staged 2026-07-18; cue-conflict stimuli in `stimuli/style-transfer-preprocessed-512/` (1280 PNGs). Harness validated against pretrained RN-50 — see `results/phase2_geirhos/README.md` |
 
 ### Phase 1.5 historical (CIFAR transfer experiment, FAILED — not needed for Phase 2)
 
@@ -43,8 +44,8 @@ it's used for. Run `python check_data.py` after staging to verify.
 | Dataset | Approx size | Source | Used for |
 |---|---|---|---|
 | **Stylized-ImageNet val** | ~7 GB | github `bethgelab/stylize-datasets` | Direct shape-bias test |
-| **rgeirhos/texture-vs-shape** | small | `git clone rgeirhos/texture-vs-shape` | Geirhos cue-conflict stimuli |
-| **Geirhos 16-class map** | small | derive from `texture-vs-shape` repo | `geirhos_shape_bias.py --class-map-json` |
+| **rgeirhos/texture-vs-shape** | small | `git clone rgeirhos/texture-vs-shape` | **STAGED locally** (see table above); rsync or re-clone on the instance |
+| **Geirhos 16-class map** | small | `python make_geirhos_class_map.py` | **DONE** — `geirhos_classes_to_imagenet.json` checked in at repo root |
 | **DTD (Textures)** | ~0.7 GB | torchvision built-in / vgg/dtd | Anomaly OOD |
 | **LSUN / Places365 / SVHN** | varies | torchvision built-in | Anomaly OOD |
 
@@ -76,11 +77,11 @@ $DATA/    # the data root on your GPU instance, e.g. /data/datasets/
   imagenet_o/<wnid>/*.JPEG          [TODO Tier 2]
   imagenet_c_bar/...                [TODO Tier 2]
   imagenet_p/<perturbation>/...     [TODO Tier 2]
-  texture-vs-shape/data-cue-conflict/<geirhos_class>/*.png   [TODO Tier 3]
+  texture-vs-shape/stimuli/style-transfer-preprocessed-512/<geirhos_class>/*.png   [staged locally; rsync]
   stylized-imagenet/val/...         [TODO Tier 3]
 
 # At the repo root (NOT in $DATA):
-geirhos_classes_to_imagenet.json    [TODO Tier 3]
+geirhos_classes_to_imagenet.json    [DONE — checked in]
 ```
 
 ## Launch commands (post-staging, ImageNet)
@@ -134,6 +135,6 @@ python adversarial_eval.py --checkpoint snapshots/rn50_band_drop_all+augmix/mode
   --subsample 5000 --out adv_rn50_combo.json
 
 python geirhos_shape_bias.py --checkpoint snapshots/rn50_band_drop_all+augmix/model_best.pth.tar \
-  --arch resnet50 --stimuli-dir data/texture-vs-shape/data-cue-conflict \
+  --arch resnet50 --stimuli-dir data/texture-vs-shape/stimuli/style-transfer-preprocessed-512 \
   --class-map-json geirhos_classes_to_imagenet.json --out shape_bias_rn50_combo.json
 ```

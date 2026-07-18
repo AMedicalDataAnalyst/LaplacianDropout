@@ -19,7 +19,10 @@ scaling). **Shared** = used by both. **Archive** = historical / superseded.
 | `docs/CIFAR_RESULTS.md` | P2 | Auto-generated CIFAR sweep table; updated by `cifar_aggregate.py` |
 | `docs/DATA_SETUP.md` | P2 | Canonical dataset list + launch commands |
 | `docs/PAPER_OUTLINE.md` | P2 | Paper skeleton with current numbers slotted in |
-| `docs/THEORY_OUTLINE.md` | Shared | Mechanism hypotheses + experiment shortlist |
+| `docs/THEORY_OUTLINE.md` | Shared | Mechanism hypotheses + experiment shortlist (3 of 4 mechanism figures DONE) |
+| `docs/PHASE2_KICKOFF.md` | P2 | **The GPU-rental walkthrough** — instance specs, budget, data staging, launch commands, decision gates, recovery |
+| `docs/REVIEWER_DEFENSE.md` | P2 | The operator-family-memorization concern + the hf/lf control experiments that refuted it |
+| `docs/band_targeted_pgd_table.md` | P2 | Rendered band-targeted PGD result table (canonical copy) |
 
 ## Top-level docs (archived in `docs/historical/`)
 
@@ -54,11 +57,20 @@ scaling). **Shared** = used by both. **Archive** = historical / superseded.
 | `ood_eval.py` | LIVE | ImageNet-R / -A / -Sketch eval. Reuses pixmix's wnid masks. |
 | `calibration_eval.py` | LIVE | RMS-CE / AURRA on clean + ImageNet-C. Uses pixmix `calibration_tools.get_measures`. |
 | `adversarial_eval.py` | LIVE | torchattacks PGD / APGD / AutoAttack wrapper. |
-| `geirhos_shape_bias.py` | LIVE | Geirhos cue-conflict shape-bias %. Needs external stimuli per `DATA_SETUP.md`. |
+| `geirhos_shape_bias.py` | LIVE — validated | Geirhos cue-conflict shape-bias %. Stimuli staged, harness validated vs pretrained RN-50 (`results/phase2_geirhos/`). Needs 1k models for science numbers. |
+| `make_geirhos_class_map.py` | LIVE | Extracts Geirhos's 16-class → ImageNet-index map from a texture-vs-shape clone into `geirhos_classes_to_imagenet.json`. |
+| `geirhos_classes_to_imagenet.json` | LIVE (generated, checked in) | The 16-class → ImageNet-1k-index map used by `geirhos_shape_bias.py`. |
+| `gradient_spectrum.py` | LIVE — run | Per-band input-gradient energy analysis (mechanism exp 3). |
+| `band_targeted_pgd.py` | LIVE — run | PGD constrained to a single Laplacian band (mechanism exp 6). |
+| `plot_band_targeted_pgd.py` | LIVE | Regenerates `figures/band_targeted_pgd.png` + `docs/band_targeted_pgd_table.md`. |
+| `subtractive_transforms.py` | LIVE — run | Bit-depth reduction + PCA color-plane dropping transforms (subtractive ablation). |
 | `check_data.py` | LIVE | Verifies expected data dir layout. |
-| `run_cifar_derisk.sh` | LIVE | 2-run de-risk orchestrator (currently running). |
-| `run_cifar_sweep.sh` | LIVE | 30-run full sweep orchestrator (gated on de-risk). |
-| `run_band_count_ablation.sh` | LIVE | Band-count ablation orchestrator (Phase-1.5 — already run). |
+| `run_cifar_derisk.sh` | HISTORICAL | 2-run de-risk orchestrator (ran; Gate A failed → CIFAR sweep skipped). |
+| `run_cifar_sweep.sh` | HISTORICAL — do not run | 30-run full sweep; permanently skipped after Gate A failure. |
+| `run_band_count_ablation.sh` | HISTORICAL | Band-count ablation orchestrator (Phase-1.5 — run). |
+| `run_reviewer_defense.sh`, `run_bandmask_fulleval.sh`, `run_bd_only_recovery.sh` | HISTORICAL | Reviewer-defense / full-eval / recovery launchers (all run). |
+| `run_band_targeted_pgd.sh` | LIVE | Band-targeted PGD sweep (re-runnable, ~18 min). |
+| `run_subtractive_ablation.sh`, `kill_after_method4.sh`, `queue_after_derisk.sh` | HISTORICAL | Subtractive sweep + its deliberate early stop + the derisk queue wrapper. |
 
 ## Patched third-party
 
@@ -84,21 +96,23 @@ All Phase-1 result files relocated from repo root into subdirs under
 | `results/phase1_imagenette_full/` | `imagenette_results_FULL_*.json` — full Imagenette-C eval per checkpoint |
 | `results/phase1_comparison/` | `comparison_*.json` — multi-method comparison runs from `compare_methods.py` |
 | `results/phase1_ablations/` | `band_count_ablation_L*_bands*.json`, `band_keep1_*.json` |
-| `results/phase2_reviewer_defense/` | `bandmask_*_224.json` — seed-0 hf_only / lf_only runs |
+| `results/phase2_reviewer_defense/` | `bandmask_*_224{,_3seed}.json` — hf_only / lf_only controls (3-seed complete) |
+| `results/phase2_targeted_pgd/` | `<model>_target_<band|none>.json` — band-targeted PGD sweep (5 models × 7 attacks) |
+| `results/phase2_subtractive/` | `*_224_3seed.json` — subtractive-axes ablation (4 runs; sweep deliberately stopped early) |
+| `results/phase2_geirhos/` | `shape_bias_*.json` — Geirhos harness validation (pretrained RN-50); 1k-model results will land here |
 | `cifar_results/` | Phase-2 CIFAR per-(dataset, method, seed) eval JSONs |
 
-Active 3-seed Imagenette runs write to root (`bandmask_*_224_3seed.json`)
-while training, then will be moved into `results/phase2_reviewer_defense/`
-when complete.
+Each `results/` subdir has a `README.md` with the experiment context,
+headline table, and reproduction commands.
 
 ## Logs — `logs/`
 
 | Subdir | Contents |
 |---|---|
 | `logs/phase1/` | Phase-1 `run_*.txt` training logs |
-| `logs/phase2/` | `run_cifar_derisk.log`, `queue_after_derisk.log`, `run_band_count_ablation.log`, `run_band_keep1.log` |
+| `logs/phase2/` | All Phase-2 run logs: CIFAR de-risk + queue wrapper, band-count/keep1 ablations, 3-seed Imagenette, reviewer-defense full-eval + recovery, glass-blur, band-targeted PGD, subtractive ablation (+ its early-stop `kill_after_method4.log`) |
 
-`run_imagenette_3seed.log` stays at root while the 3-seed runs are active.
+Nothing is running; no logs live at the repo root.
 
 ## Figures — `figures/`
 
@@ -106,6 +120,8 @@ when complete.
 |---|---|
 | `tier1_tradeoff.png` | regenerated by `build_report.py` |
 | `shape_bias_per_corruption.png`, `shape_bias_tradeoff.png` | Phase-1 shape-bias plots |
+| `gradient_spectrum.png` | `gradient_spectrum.py` (mechanism exp 3) |
+| `band_targeted_pgd.png` | `plot_band_targeted_pgd.py` (mechanism exp 6) |
 
 ## Checkpoints
 
@@ -114,7 +130,7 @@ when complete.
   (dataset, method, seed). Each contains `checkpoint.pth.tar` (latest) and
   `model_best.pth.tar` (best val acc). Currently has:
   - `cifar10_baseline_seed0/`
-  - `cifar10_band_drop_all_p_augmix_seed0/` (training in progress)
+  - `cifar10_band_drop_all_p_augmix_seed0/`
 
 ## Caches
 
@@ -124,8 +140,9 @@ when complete.
 
 ## Logs
 
-- `run_*.txt` — Phase 1 training logs. Historical reference.
-- `run_*.log` — Phase 2 training logs (`run_cifar_derisk.log` is the live one).
+- `logs/phase1/run_*.txt` — Phase 1 training logs. Historical reference.
+- `logs/phase2/run_*.log` — Phase 2 training/eval logs. Nothing is
+  currently running; all finished logs live here (none at repo root).
 
 ## External data (not in repo)
 
@@ -135,4 +152,5 @@ when complete.
 | CIFAR-10 / -100 | `/mnt/c/Users/JoyToy/Documents/Projects/data/cifar-{10-batches-py, 100-python}/` | All CIFAR runs |
 | CIFAR-10-C / -100-C | `/mnt/c/Users/JoyToy/Documents/Projects/data/CIFAR-{10,100}-C/` | `cifar_eval.py --c-dir` |
 | Fractals mixing set | `/mnt/c/Users/JoyToy/Documents/Projects/data/fractals_and_fvis/fractals/images/` | Phase 2 PixMix (when added to sweep) |
+| Geirhos texture-vs-shape | `/mnt/c/Users/JoyToy/Documents/Projects/data/texture-vs-shape/` | `geirhos_shape_bias.py` (stimuli) + `make_geirhos_class_map.py` (mapping source) |
 | ImageNet-1k / -C / -R / -A / -Sketch | Not yet downloaded | Phase 2 ImageNet runs |

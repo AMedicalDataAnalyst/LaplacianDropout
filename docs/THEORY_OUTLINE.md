@@ -59,7 +59,11 @@ Decomposes the effect of view diversity from the JSD itself.
 1. **Band-count ablation** — sweep levels ∈ {1..6}. Tells us how many bands
    are needed for the benefit; thin band counts test whether *any*
    structured-subspace dropout helps or whether spectral granularity matters.
-   *(In progress now.)*
+
+   **DONE (Phase 1.5).** Corruption robustness rises monotonically with
+   band count and saturates at L=5 (6 bands); Pareto knee at L=3. Data:
+   `results/phase1_ablations/band_count_ablation_L*.json`; summary table
+   in `PHASE2_STATUS.md`.
 
 2. **Per-band-only ablation** — train with each band dropped individually
    (not random). Identifies which bands contribute most to the robustness
@@ -98,9 +102,22 @@ Decomposes the effect of view diversity from the JSD itself.
 5. **Shape-bias % (Geirhos cue-conflict)** — direct measurement of H2.
    Predict band_drop_all model has higher shape-bias than baseline/AugMix.
 
+   **HARNESS VALIDATED 2026-07-18; science number blocked on ImageNet-1k
+   models.** Stimuli staged, class map checked in, and the runner
+   reproduces the published pretrained-RN-50 shape bias (0.222). Cannot
+   run on Imagenette checkpoints — only 2/16 Geirhos classes overlap
+   Imagenette (10 usable stimuli). See `results/phase2_geirhos/README.md`.
+
 6. **Spectrally-targeted adversarial attacks** — PGD with the perturbation
    constrained to a single Laplacian band. If H1 holds, band_drop_all should
    be robust to any single-band attack while baseline collapses.
+
+   **DONE (2026-06-04, `band_targeted_pgd.py`).** Prediction confirmed:
+   all models most vulnerable at band 0 (HF); band_drop_all raises band-0
+   robustness 0.44 → 0.60–0.65; the hf_only/lf_only controls bracket it
+   exactly as H1 predicts (0.775 vs 0.050). Table:
+   `docs/band_targeted_pgd_table.md`; figure `figures/band_targeted_pgd.png`;
+   data + analysis `results/phase2_targeted_pgd/README.md`.
 
 ## What the writeup looks like
 
@@ -108,3 +125,7 @@ A "Mechanism" section presenting (1)+(5)+(3)+(6) as the four-figure story:
 robustness scales with band count, model is shape-biased, the gradient
 spectrum is flat, and the model resists band-targeted adversarial attacks.
 That's a concrete, testable mechanistic story, not just "this aug helps."
+
+**Status (2026-07-18): figures 1, 3 and 6 are done at Imagenette-224.
+Figure 5 (shape bias) has a validated harness and waits only on the
+ImageNet-1k trained models (Phase 2 A/B).**

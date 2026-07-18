@@ -48,13 +48,20 @@ clean accuracy by 0.7 pp.
    - OOD: ImageNet-R / ImageNet-A / ImageNet-Sketch. [BLOCKED]
    - Calibration: RMS-CE on clean + corrupted. [BLOCKED]
    - Adversarial: PGD@ε=4/255. [BLOCKED]
-   - Shape-bias: Geirhos cue-conflict %. [BLOCKED]
+   - Shape-bias: Geirhos cue-conflict %. [BLOCKED on 1k models; harness
+     validated + stimuli staged 2026-07-18]
 
 6. **Mechanism / analysis**
    - Per-corruption breakdown (spectral selectivity of wins). [DONE @ 224²]
-   - Band-count ablation conclusion. [PENDING]
-   - Gradient spectrum / shape-bias / band-targeted PGD. [PENDING — see
-     THEORY_OUTLINE.md for the four-figure story.]
+   - Band-count ablation conclusion. [DONE — saturates L=5, knee L=3]
+   - Gradient spectrum. [DONE @ 224² — HF concentration 5.6 → 3.2]
+   - Band-targeted PGD. [DONE @ 224² — `docs/band_targeted_pgd_table.md`]
+   - Shape-bias (Geirhos). [HARNESS VALIDATED; number needs 1k models —
+     `results/phase2_geirhos/README.md`]
+   - Reviewer-defense hf/lf controls. [DONE, 3-seed —
+     `results/phase2_reviewer_defense/README.md`]
+   - Subtractive-axes ablation (bit_depth/pca_color interference). [DONE —
+     `results/phase2_subtractive/README.md`]
 
 7. **Related work** — AugMix, PixMix, IPMix, PRIME, DeepAugment;
    frequency-domain augmentation lit (FreqDrop, AmplitudeMix, etc.);
