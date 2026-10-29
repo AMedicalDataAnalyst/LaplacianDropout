@@ -1,0 +1,16 @@
+compare_methods | methods=['band_drop_all'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.8879    0.6961    0.8803    0.8101   45
+  ema 0.99                 0    0.8894    0.6940    0.8820    0.8066   45
+  ema 0.999                0    0.8887    0.6813    0.8808    0.8041   45
+band_drop_all              1    0.8948    0.7085    0.8836    0.8056   50
+  ema 0.99                 1    0.8938    0.7113    0.8836    0.8041   50
+  ema 0.999                1    0.8912    0.7011    0.8818    0.8067   50
+band_drop_all              2    0.8851    0.7032    0.8805    0.8041   47
+  ema 0.99                 2    0.8876    0.7065    0.8800    0.8036   47
+  ema 0.999                2    0.8892    0.6932    0.8808    0.8068   47
+Wrote results/phase2_ema/ema_band_drop_all.json

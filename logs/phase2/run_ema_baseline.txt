@@ -1,0 +1,16 @@
+compare_methods | methods=['baseline'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+baseline                   0    0.8943    0.1417    0.5251    0.5349   44
+  ema 0.99                 0    0.8961    0.1447    0.5462    0.5407   44
+  ema 0.999                0    0.8907    0.1524    0.5302    0.5378   44
+baseline                   1    0.8907    0.1493    0.5906    0.5625   47
+  ema 0.99                 1    0.8925    0.1427    0.5883    0.5593   47
+  ema 0.999                1    0.8925    0.1552    0.5771    0.5588   47
+baseline                   2    0.8999    0.1508    0.5269    0.5464   47
+  ema 0.99                 2    0.9001    0.1485    0.5248    0.5445   47
+  ema 0.999                2    0.8961    0.1485    0.5264    0.5422   47
+Wrote results/phase2_ema/ema_baseline.json

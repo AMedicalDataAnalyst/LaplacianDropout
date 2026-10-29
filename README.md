@@ -82,6 +82,7 @@ the files, and the key findings:
 | **`results/phase2_reviewer_defense/`** | The `--band-mask hf_only` / `lf_only` controls that pre-empt the operator-family-memorization reviewer attack. 3-seed result: both targeted variants strictly worse (≥30σ) than the full random method — attack refuted. |
 | **`results/phase2_targeted_pgd/`** | Band-targeted PGD spectral vulnerability profile (5 models × 7 attacks). `band_drop_all` training measurably de-concentrates adversarial reliance on the highest-frequency band. |
 | **`results/phase2_subtractive/`** | Subtractive-axes ablation (bit_depth, pca_color). Both work standalone but interfere when stacked on the headline — evidence the recipe is complete, not under-tuned. |
+| **`results/phase2_ema/`** | Weight-EMA baseline comparison at 224², two arms (cosine LR + constant LR where EMA does the annealing). Simple EMA does **not** substitute for band-dropout (best-case baseline+EMA corr 0.599 vs 0.807); under cosine it is neutral, under constant LR it is a small complement — const-LR + ema 0.999 on the headline sets the best corruption number so far (0.8376 vs 0.8296, at −0.4 pp clean). |
 | **`results/phase2_geirhos/`** | Geirhos shape-bias harness validation (reproduces published pretrained-RN-50 shape bias 0.222). Science numbers await ImageNet-1k models. |
 | **`cifar_results/`** | Phase-2 CIFAR per-(dataset, method, seed) eval JSONs. Aggregated by `cifar_aggregate.py` into `docs/CIFAR_RESULTS.md`. |
 

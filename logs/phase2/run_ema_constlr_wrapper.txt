@@ -1,0 +1,55 @@
+[2026-08-21T08:35:32+01:00] start baseline -> results/phase2_ema/ema_constlr_baseline.json
+compare_methods | methods=['baseline'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+baseline                   0    0.8433    0.1470    0.5289    0.5509   50
+  ema 0.99                 0    0.9009    0.1541    0.5562    0.5874   50
+  ema 0.999                0    0.8981    0.1465    0.5343    0.5907   50
+baseline                   1    0.8527    0.1429    0.5238    0.5450   50
+  ema 0.99                 1    0.8983    0.1460    0.5852    0.5964   50
+  ema 0.999                1    0.8963    0.1409    0.6074    0.5990   50
+baseline                   2    0.8127    0.1164    0.4293    0.4713   50
+  ema 0.99                 2    0.8981    0.1411    0.5839    0.5929   50
+  ema 0.999                2    0.8994    0.1332    0.5857    0.6072   50
+Wrote results/phase2_ema/ema_constlr_baseline.json
+[2026-08-21T08:49:34+01:00] done baseline
+[2026-08-21T08:49:34+01:00] start augmix -> results/phase2_ema/ema_constlr_augmix.json
+compare_methods | methods=['augmix'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+augmix                     0    0.8324    0.1603    0.7022    0.6243   50
+  ema 0.99                 0    0.9098    0.1590    0.6795    0.7156   50
+  ema 0.999                0    0.9098    0.1511    0.6882    0.7241   50
+augmix                     1    0.8777    0.1633    0.6892    0.6827   50
+  ema 0.99                 1    0.9146    0.1490    0.7042    0.7294   50
+  ema 0.999                1    0.9088    0.1345    0.7106    0.7395   50
+augmix                     2    0.8668    0.1490    0.6866    0.6679   50
+  ema 0.99                 2    0.9116    0.1557    0.7325    0.7173   50
+  ema 0.999                2    0.9080    0.1577    0.7177    0.7224   50
+Wrote results/phase2_ema/ema_constlr_augmix.json
+[2026-08-21T09:17:37+01:00] done augmix
+[2026-08-21T09:17:37+01:00] start band_drop_all+augmix -> results/phase2_ema/ema_constlr_band_drop_all_augmix.json
+compare_methods | methods=['band_drop_all+augmix'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all+augmix       0    0.8706    0.5503    0.8632    0.7940   50
+  ema 0.99                 0    0.8948    0.6484    0.8848    0.8233   50
+  ema 0.999                0    0.8920    0.6594    0.8851    0.8339   50
+band_drop_all+augmix       1    0.8637    0.5740    0.8474    0.7904   50
+  ema 0.99                 1    0.8948    0.6578    0.8851    0.8324   50
+  ema 0.999                1    0.8971    0.6662    0.8902    0.8413   50
+band_drop_all+augmix       2    0.8634    0.4884    0.8482    0.7981   50
+  ema 0.99                 2    0.8927    0.6515    0.8854    0.8347   50
+  ema 0.999                2    0.8963    0.6665    0.8848    0.8376   50
+Wrote results/phase2_ema/ema_constlr_band_drop_all_augmix.json
+[2026-08-21T09:54:08+01:00] done band_drop_all+augmix
+[2026-08-21T09:54:08+01:00] constant-LR EMA sweep complete

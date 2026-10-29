@@ -9,6 +9,7 @@ Also supports combinations:
 """
 
 import os
+import copy
 import json
 import argparse
 from math import ceil
@@ -194,6 +195,120 @@ def apply_pixmix_batch(x_norm: torch.Tensor, mix_set_norm: torch.Tensor,
 
 
 ############################################
+#      Weight EMA (Polyak averaging)       #
+############################################
+
+class ModelEMA:
+    """Exponential moving average of model weights.
+
+    Shadow is initialized from the current weights (so there is no zero-init
+    bias term to correct) and updated after every optimizer step with a fixed
+    decay. Float params and float buffers (BN running stats) are averaged;
+    integer buffers (num_batches_tracked) are copied through. The shadow is
+    passive — it never touches the training trajectory or the RNG stream, so
+    a run with EMA tracking is step-for-step identical to one without.
+
+    Note on decay choice: with init-from-weights and no warmup ramp, the
+    initial (random) weights retain weight decay^T after T steps. At the
+    224² protocol (~98 steps/epoch × 50 epochs ≈ 4900 steps) that is 0.7%
+    for decay=0.999 and 8.6% for decay=0.9995 — keep decays ≤ ~0.999 unless
+    the run is longer.
+    """
+
+    def __init__(self, model: nn.Module, decay: float):
+        self.decay = decay
+        self.module = copy.deepcopy(model).eval()
+        for p in self.module.parameters():
+            p.requires_grad_(False)
+        # Cache aligned (shadow, live) tensor lists once; optimizer and BN
+        # updates are in-place, so the live references stay valid.
+        self._ema_float, self._src_float = [], []
+        self._ema_int, self._src_int = [], []
+        src_sd = model.state_dict()
+        for k, v in self.module.state_dict().items():
+            if v.dtype.is_floating_point:
+                self._ema_float.append(v)
+                self._src_float.append(src_sd[k])
+            else:
+                self._ema_int.append(v)
+                self._src_int.append(src_sd[k])
+
+    @torch.no_grad()
+    def update(self):
+        d = self.decay
+        torch._foreach_mul_(self._ema_float, d)
+        torch._foreach_add_(self._ema_float, self._src_float, alpha=1.0 - d)
+        for e, s in zip(self._ema_int, self._src_int):
+            e.copy_(s)
+
+
+def evaluate_corruption_suite_multi(models: dict, corruption_loader,
+                                    severities=(1, 3, 5),
+                                    corruptions=ic.CORRUPTION_TYPES,
+                                    subsample: Optional[int] = None,
+                                    batch_size: int = 128) -> dict:
+    """ic.evaluate_corruption_suite for several models at once.
+
+    CPU-side corruption generation dominates the wall-clock, so evaluating
+    N models on the same corrupted batches costs ~1× instead of N×. Uses the
+    identical deterministic subsample (seed-0 choice) and normalization as
+    ic.evaluate_corruption, so numbers are comparable with all prior results.
+    Returns {model_name: suite_dict} with the same schema as the single-model
+    suite ({corruption: {severity: acc}, "_mean": float}).
+    """
+    from imagecorruptions import corrupt
+    for m in models.values():
+        m.eval()
+    pad = corruption_loader.pad
+    res = corruption_loader.resolution
+    images_uint8 = corruption_loader.images_uint8_cpu
+    cropped = images_uint8[:, :, pad:pad + res, pad:pad + res] \
+        .permute(0, 2, 3, 1).contiguous().numpy()
+    labels = corruption_loader.labels.cpu().numpy()
+    if subsample is not None and subsample < len(labels):
+        rng = np.random.default_rng(0)
+        idx = rng.choice(len(labels), size=subsample, replace=False)
+        idx.sort()
+        cropped = cropped[idx]
+        labels = labels[idx]
+    n = len(labels)
+
+    mean_g = ic.IMAGENET_MEAN.view(1, 3, 1, 1).cuda().half()
+    std_g = ic.IMAGENET_STD.view(1, 3, 1, 1).cuda().half()
+
+    results = {name: {} for name in models}
+    all_acc = {name: [] for name in models}
+    for c in corruptions:
+        for name in models:
+            results[name][c] = {}
+        for s in severities:
+            correct = {name: 0 for name in models}
+            for i in range(0, n, batch_size):
+                batch_hwc = cropped[i:i + batch_size]
+                batch_corr = np.empty_like(batch_hwc)
+                for j in range(batch_hwc.shape[0]):
+                    batch_corr[j] = corrupt(batch_hwc[j], corruption_name=c,
+                                            severity=s)
+                t = torch.from_numpy(batch_corr).cuda(non_blocking=True)
+                t = t.permute(0, 3, 1, 2).contiguous().half() / 255.0
+                t = ((t - mean_g) / std_g).contiguous(memory_format=torch.channels_last)
+                lbl = torch.from_numpy(labels[i:i + batch_size]).cuda(non_blocking=True)
+                with torch.no_grad(), torch.amp.autocast("cuda", dtype=torch.float16):
+                    for name, m in models.items():
+                        preds = m(t).argmax(1)
+                        correct[name] += (preds == lbl).sum().item()
+            for name in models:
+                acc = correct[name] / n
+                results[name][c][s] = acc
+                all_acc[name].append(acc)
+    for name in models:
+        results[name]["_mean"] = sum(all_acc[name]) / len(all_acc[name])
+        if subsample is not None:
+            results[name]["_subsample"] = subsample
+    return results
+
+
+############################################
 #         Train one variant                #
 ############################################
 
@@ -226,6 +341,15 @@ def cosine_lr(step: int, total_steps: int, base_lr: float,
     t = (step - warmup_steps) / max(1, total_steps - warmup_steps)
     t = min(t, 1.0)
     return 0.5 * base_lr * (1.0 + math.cos(math.pi * t))
+
+
+def constant_lr(step: int, total_steps: int, base_lr: float,
+                warmup_steps: int) -> float:
+    """Warmup then flat. The EMA-favoring schedule: with no cosine tail, any
+    end-of-training annealing has to come from weight averaging."""
+    if step < warmup_steps:
+        return base_lr * (step + 1) / max(1, warmup_steps)
+    return base_lr
 
 
 def apply_ipmix_batch(x_norm: torch.Tensor, mix_set_norm: torch.Tensor,
@@ -374,13 +498,20 @@ def train_one(method: str, model: ic.ImagenetteNet,
               lr_warmup_epochs: int = 2,
               batch_size: int = 128,
               resolution: int = 160, pad: int = 8,
-              skip_reset: bool = False) -> dict:
+              skip_reset: bool = False,
+              ema_decays: tuple = (),
+              schedule: str = "cosine") -> dict:
     train_loader, val_loader = build_loaders(batch_size, resolution=resolution, pad=pad)
     mix_set = (make_mix_set(train_loader)
                 if any(t in method for t in ("pixmix", "ipmix")) else None)
 
     if not skip_reset:
         model.reset()
+
+    # EMA shadows track passively; they consume no RNG and never influence
+    # the schedule or early stopping, so the raw trajectory is identical to
+    # a run without them.
+    emas = {f"{d:g}": ModelEMA(model, d) for d in ema_decays}
 
     optimizer = torch.optim.AdamW(model.parameters(), lr=base_lr,
                                    weight_decay=weight_decay, fused=True)
@@ -398,10 +529,12 @@ def train_one(method: str, model: ic.ImagenetteNet,
     last_lr = base_lr
     plateau_hit = False
 
+    lr_fn = {"cosine": cosine_lr, "constant": constant_lr}[schedule]
+
     while epoch < max_epochs:
         model.train()
         for inputs, labels in train_loader:
-            lr = cosine_lr(step, phase_total_steps, base_lr, warmup_steps)
+            lr = lr_fn(step, phase_total_steps, base_lr, warmup_steps)
             for g in optimizer.param_groups:
                 g["lr"] = lr
             last_lr = lr
@@ -436,11 +569,17 @@ def train_one(method: str, model: ic.ImagenetteNet,
             scaler.scale(loss).backward()
             scaler.step(optimizer)
             scaler.update()
+            for e in emas.values():
+                e.update()
             step += 1
 
         # Eval after each epoch.
         val_acc = ic.evaluate(model, val_loader, filter_fn=None)
-        history.append({"epoch": epoch, "val_acc": val_acc, "lr": last_lr})
+        hist_entry = {"epoch": epoch, "val_acc": val_acc, "lr": last_lr}
+        if emas:
+            hist_entry["val_acc_ema"] = {k: ic.evaluate(e.module, val_loader)
+                                         for k, e in emas.items()}
+        history.append(hist_entry)
         if val_acc > best_val + eps:
             best_val = val_acc
             epochs_since_best = 0
@@ -456,8 +595,9 @@ def train_one(method: str, model: ic.ImagenetteNet,
     final_val = ic.evaluate(model, val_loader, filter_fn=None)
     final_res = ic.evaluate(model, val_loader, filter_fn=ic.residual_filter)
     final_blur = ic.evaluate(model, val_loader, filter_fn=ic.blur_filter)
-    return {
+    result = {
         "method": method,
+        "schedule": schedule,
         "max_epochs": max_epochs,
         "epochs_done": epoch,
         "plateau_hit": plateau_hit,
@@ -467,6 +607,21 @@ def train_one(method: str, model: ic.ImagenetteNet,
         "val_acc_blur_at_test": final_blur,
         "history": history,
     }
+    if emas:
+        result["ema_decays"] = [e.decay for e in emas.values()]
+        result["ema"] = {}
+        for k, e in emas.items():
+            result["ema"][k] = {
+                "val_acc": ic.evaluate(e.module, val_loader, filter_fn=None),
+                "val_acc_residual_at_test": ic.evaluate(
+                    e.module, val_loader, filter_fn=ic.residual_filter),
+                "val_acc_blur_at_test": ic.evaluate(
+                    e.module, val_loader, filter_fn=ic.blur_filter),
+            }
+        # Handed to main() for corruption eval / checkpointing; popped
+        # before the JSON dump.
+        result["_ema_modules"] = {k: e.module for k, e in emas.items()}
+    return result
 
 
 def main():
@@ -525,6 +680,19 @@ def main():
                     "'leading' = top-half (highest variance), 'trailing' = bottom-half")
     ap.add_argument("--pca-apply-p", type=float, default=1.0,
                     help="probability of applying PCAColorDropout per image (default 1.0)")
+    ap.add_argument("--schedule", default="cosine",
+                    choices=["cosine", "constant"],
+                    help="LR schedule after warmup. 'constant' (warmup then "
+                    "flat) removes the cosine tail so weight-EMA has to do "
+                    "the annealing — the EMA-favoring recipe. Note plateau "
+                    "early-stop never fires at constant LR (lr_low is never "
+                    "true), so runs use the full epoch budget.")
+    ap.add_argument("--ema-decays", nargs="*", type=float, default=[],
+                    help="track weight-EMA shadow(s) at these decay values "
+                    "(e.g. 0.99 0.999). Shadows are passive: the training "
+                    "trajectory and raw-model numbers are unchanged. Each "
+                    "shadow gets its own final eval + corruption suite, "
+                    "recorded under result['ema'][<decay>]. Empty = off.")
     args = ap.parse_args()
 
     global BAND_MASK_OVERRIDE
@@ -593,7 +761,10 @@ def main():
                                 use_jsd=args.use_jsd,
                                 batch_size=args.batch_size,
                                 resolution=args.resolution, pad=args.pad,
-                                skip_reset=bool(args.load_checkpoint))
+                                skip_reset=bool(args.load_checkpoint),
+                                ema_decays=tuple(args.ema_decays),
+                                schedule=args.schedule)
+            ema_modules = result.pop("_ema_modules", {})
             result["run"] = r
             result["seed"] = seed
             result["band_levels"] = ic.LEVELS
@@ -602,10 +773,17 @@ def main():
             if corruption_loader is not None:
                 sevs = (3,) if args.corruption_eval == "fast" else (1, 3, 5)
                 sub = 1000 if args.corruption_eval == "fast" else None
-                corr = ic.evaluate_corruption_suite(model, corruption_loader,
-                                                     severities=sevs, subsample=sub)
-                result["corruption"] = corr
-                corr_mean = corr["_mean"]
+                if ema_modules:
+                    suites = evaluate_corruption_suite_multi(
+                        {"raw": model, **ema_modules}, corruption_loader,
+                        severities=sevs, subsample=sub)
+                    result["corruption"] = suites["raw"]
+                    for k in ema_modules:
+                        result["ema"][k]["corruption"] = suites[k]
+                else:
+                    result["corruption"] = ic.evaluate_corruption_suite(
+                        model, corruption_loader, severities=sevs, subsample=sub)
+                corr_mean = result["corruption"]["_mean"]
             if args.save_checkpoints:
                 ckpt_path = os.path.join("checkpoints",
                                           f"{method.replace('+', '_')}_r{r}.pt")
@@ -613,11 +791,28 @@ def main():
                             "method": method, "run": r,
                             "val_acc": result["val_acc"]}, ckpt_path)
                 result["checkpoint"] = ckpt_path
+                for k, m in ema_modules.items():
+                    ema_path = os.path.join(
+                        "checkpoints",
+                        f"{method.replace('+', '_')}_ema{k}_r{r}.pt")
+                    torch.save({"state_dict": m.state_dict(),
+                                "method": method, "run": r,
+                                "ema_decay": float(k),
+                                "val_acc": result["ema"][k]["val_acc"]},
+                               ema_path)
+                    result["ema"][k]["checkpoint"] = ema_path
             all_results.append(result)
             print(f"{method:<24} {r:>3} {result['val_acc']:>9.4f} "
                   f"{result['val_acc_residual_at_test']:>9.4f} "
                   f"{result['val_acc_blur_at_test']:>9.4f} "
                   f"{corr_mean:>9.4f} {result['epochs_done']:>4}")
+            for k in ema_modules:
+                ema_r = result["ema"][k]
+                ema_corr = ema_r.get("corruption", {}).get("_mean", float("nan"))
+                print(f"{'  ema ' + k:<24} {r:>3} {ema_r['val_acc']:>9.4f} "
+                      f"{ema_r['val_acc_residual_at_test']:>9.4f} "
+                      f"{ema_r['val_acc_blur_at_test']:>9.4f} "
+                      f"{ema_corr:>9.4f} {result['epochs_done']:>4}")
 
     with open(args.out, "w") as f:
         json.dump(all_results, f, indent=2)

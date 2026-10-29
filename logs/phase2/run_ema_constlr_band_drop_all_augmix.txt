@@ -1,0 +1,16 @@
+compare_methods | methods=['band_drop_all+augmix'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all+augmix       0    0.8706    0.5503    0.8632    0.7940   50
+  ema 0.99                 0    0.8948    0.6484    0.8848    0.8233   50
+  ema 0.999                0    0.8920    0.6594    0.8851    0.8339   50
+band_drop_all+augmix       1    0.8637    0.5740    0.8474    0.7904   50
+  ema 0.99                 1    0.8948    0.6578    0.8851    0.8324   50
+  ema 0.999                1    0.8971    0.6662    0.8902    0.8413   50
+band_drop_all+augmix       2    0.8634    0.4884    0.8482    0.7981   50
+  ema 0.99                 2    0.8927    0.6515    0.8854    0.8347   50
+  ema 0.999                2    0.8963    0.6665    0.8848    0.8376   50
+Wrote results/phase2_ema/ema_constlr_band_drop_all_augmix.json

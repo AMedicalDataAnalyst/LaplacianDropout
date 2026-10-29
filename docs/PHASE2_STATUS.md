@@ -45,6 +45,7 @@ Plus a robustness battery (calibration, adversarial, OOD, shape-bias).
 | 28 | Band-targeted PGD sweep (5 models × 7 attacks) | **DONE 2026-06-04** — spectral vulnerability profile (see `results/phase2_targeted_pgd/README.md`) |
 | 29 | Gradient-spectrum mechanism analysis | **DONE 2026-06-04** — HF concentration 5.6 → 3.2 (see `THEORY_OUTLINE.md` exp 3) |
 | 30 | Subtractive-axes ablation (bit_depth, pca_color) | **DONE 2026-06-05** — standalone gains, but stacking interferes; headline recipe unchanged (see `results/phase2_subtractive/README.md`) |
+| 31 | Weight-EMA baseline comparison (cosine + constant-LR arms, decays 0.99/0.999) | **DONE 2026-08-21** — EMA is not a substitute for band-dropout even at its best case (const-LR baseline+EMA corr 0.599 vs 0.807); neutral under cosine; small complement under const-LR — const-LR+ema0.999 on the headline hits corr 0.8376 (best so far, −0.4 pp clean). Candidate control cell for the ImageNet sweep (see `results/phase2_ema/README.md`) |
 
 ## De-risk OUTCOME (2026-06-03 07:47) — Gate A FAILED on CIFAR
 
@@ -81,6 +82,11 @@ Completed since the last version of this section (all at Imagenette-224):
 - Gradient-spectrum analysis (task 29).
 - Subtractive-axes ablation (task 30) — headline recipe unchanged.
 - Geirhos shape-bias harness staged + validated (task 12).
+- Weight-EMA baseline comparison, cosine + constant-LR arms (task 31,
+  2026-08-20/21) — EMA refuted as a substitute for band-dropout; headline
+  recipe unchanged, but const-LR + ema 0.999 stacked on the headline gives
+  the best corruption acc so far (0.8376) at −0.4 pp clean — flagged as a
+  control cell for the ImageNet sweep.
 
 ## Decision gates and what comes after
 

@@ -1,0 +1,111 @@
+[2026-08-20T20:12:11+01:00] start baseline -> results/phase2_ema/ema_baseline.json
+compare_methods | methods=['baseline'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+baseline                   0    0.8943    0.1417    0.5251    0.5349   44
+  ema 0.99                 0    0.8961    0.1447    0.5462    0.5407   44
+  ema 0.999                0    0.8907    0.1524    0.5302    0.5378   44
+baseline                   1    0.8907    0.1493    0.5906    0.5625   47
+  ema 0.99                 1    0.8925    0.1427    0.5883    0.5593   47
+  ema 0.999                1    0.8925    0.1552    0.5771    0.5588   47
+baseline                   2    0.8999    0.1508    0.5269    0.5464   47
+  ema 0.99                 2    0.9001    0.1485    0.5248    0.5445   47
+  ema 0.999                2    0.8961    0.1485    0.5264    0.5422   47
+Wrote results/phase2_ema/ema_baseline.json
+[2026-08-20T20:25:33+01:00] done baseline
+[2026-08-20T20:25:33+01:00] start augmix -> results/phase2_ema/ema_augmix.json
+compare_methods | methods=['augmix'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+augmix                     0    0.9078    0.1562    0.6706    0.6988   50
+  ema 0.99                 0    0.9090    0.1552    0.6696    0.6974   50
+  ema 0.999                0    0.9027    0.1536    0.6800    0.6921   50
+augmix                     1    0.9083    0.1692    0.6871    0.7086   48
+  ema 0.99                 1    0.9098    0.1689    0.6920    0.7056   48
+  ema 0.999                1    0.9108    0.1605    0.7009    0.7044   48
+augmix                     2    0.9085    0.1526    0.6724    0.6951   49
+  ema 0.99                 2    0.9098    0.1518    0.6718    0.6904   49
+  ema 0.999                2    0.9090    0.1470    0.6729    0.6951   49
+Wrote results/phase2_ema/ema_augmix.json
+[2026-08-20T20:53:13+01:00] done augmix
+[2026-08-20T20:53:13+01:00] start band_drop_all+augmix -> results/phase2_ema/ema_band_drop_all_augmix.json
+compare_methods | methods=['band_drop_all+augmix'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all+augmix       0    0.9011    0.6838    0.8922    0.8228   50
+  ema 0.99                 0    0.8996    0.6861    0.8930    0.8225   50
+  ema 0.999                0    0.8999    0.6803    0.8910    0.8239   50
+[W820 21:05:32.389042493 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 3724541952 bytes (free: 2082930688, total: 16602497024).
+[W820 21:05:32.389157774 CUDACachingAllocator.cpp:3933] memory allocation failed with OOM on device 0 while trying to allocate 3724541952 bytes (free: 2082930688, total: 16602497024).
+Traceback (most recent call last):
+  File "/home/joytoy/projects/laplacian_schedule/compare_methods.py", line 802, in <module>
+    main()
+    ~~~~^^
+  File "/home/joytoy/projects/laplacian_schedule/compare_methods.py", line 738, in main
+    result = train_one(method, model,
+                        max_epochs=args.max_epochs,
+    ...<4 lines>...
+                        skip_reset=bool(args.load_checkpoint),
+                        ema_decays=tuple(args.ema_decays))
+  File "/home/joytoy/projects/laplacian_schedule/compare_methods.py", line 494, in train_one
+    train_loader, val_loader = build_loaders(batch_size, resolution=resolution, pad=pad)
+                               ~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/joytoy/projects/laplacian_schedule/compare_methods.py", line 316, in build_loaders
+    train_loader = ic.ImagenetteLoader("train", batch_size=batch_size,
+                                       aug={"flip": True},
+                                       resolution=resolution, pad=pad)
+  File "/home/joytoy/projects/laplacian_schedule/imagenette_curriculum.py", line 434, in __init__
+    self.images = ((imgs_uint8.half() / 255.0) - mean) / std
+                    ~~~~~~~~~~~~~~~~~~^~~~~~~
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 3.47 GiB. GPU 0 has a total capacity of 15.46 GiB of which 1.94 GiB is free. Including non-PyTorch memory, this process has 13.19 GiB memory in use. Of the allocated memory 6.87 GiB is allocated by PyTorch, and 6.01 GiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://docs.pytorch.org/docs/stable/notes/cuda.html#optimizing-memory-usage-with-pytorch-cuda-alloc-conf)
+[2026-08-20T21:05:33+01:00] done band_drop_all+augmix
+[2026-08-20T21:05:33+01:00] start band_drop_all -> results/phase2_ema/ema_band_drop_all.json
+compare_methods | methods=['band_drop_all'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all              0    0.8879    0.6961    0.8803    0.8101   45
+  ema 0.99                 0    0.8894    0.6940    0.8820    0.8066   45
+  ema 0.999                0    0.8887    0.6813    0.8808    0.8041   45
+band_drop_all              1    0.8948    0.7085    0.8836    0.8056   50
+  ema 0.99                 1    0.8938    0.7113    0.8836    0.8041   50
+  ema 0.999                1    0.8912    0.7011    0.8818    0.8067   50
+band_drop_all              2    0.8851    0.7032    0.8805    0.8041   47
+  ema 0.99                 2    0.8876    0.7065    0.8800    0.8036   47
+  ema 0.999                2    0.8892    0.6932    0.8808    0.8068   47
+Wrote results/phase2_ema/ema_band_drop_all.json
+[2026-08-20T21:38:05+01:00] done band_drop_all
+[2026-08-20T21:38:05+01:00] EMA comparison sweep complete
+[2026-08-20T21:38:16+01:00] skip baseline — results/phase2_ema/ema_baseline.json exists
+[2026-08-20T21:38:16+01:00] skip augmix — results/phase2_ema/ema_augmix.json exists
+[2026-08-20T21:38:16+01:00] start band_drop_all+augmix -> results/phase2_ema/ema_band_drop_all_augmix.json
+compare_methods | methods=['band_drop_all+augmix'] runs=3 max_epochs=50 jsd=True
+Warming up...
+Warmup complete.
+
+method                   run   val_acc       res      blur      corr   ep
+-------------------------------------------------------------------------
+band_drop_all+augmix       0    0.9001    0.6983    0.8904    0.8293   50
+  ema 0.99                 0    0.9001    0.7001    0.8897    0.8294   50
+  ema 0.999                0    0.8968    0.6820    0.8897    0.8286   50
+band_drop_all+augmix       1    0.8971    0.6999    0.8920    0.8318   48
+  ema 0.99                 1    0.8994    0.6961    0.8910    0.8314   48
+  ema 0.999                1    0.8994    0.6864    0.8920    0.8305   48
+band_drop_all+augmix       2    0.9001    0.7039    0.8892    0.8276   50
+  ema 0.99                 2    0.8994    0.7029    0.8897    0.8266   50
+  ema 0.999                2    0.8996    0.6940    0.8871    0.8260   50
+Wrote results/phase2_ema/ema_band_drop_all_augmix.json
+[2026-08-20T22:14:23+01:00] done band_drop_all+augmix
+[2026-08-20T22:14:23+01:00] skip band_drop_all — results/phase2_ema/ema_band_drop_all.json exists
+[2026-08-20T22:14:23+01:00] EMA comparison sweep complete
