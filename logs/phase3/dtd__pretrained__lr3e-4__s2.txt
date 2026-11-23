@@ -1,0 +1,6 @@
+finetune_pretrained | dtd classes=47 train=3760 val=1880 init=pretrained lr=0.0003 epochs=50 seed=2
+baseline               raw clean/corr 0.6372/0.2967  ema0.99: 0.7144/0.3514 ema0.999: 0.7250/0.3806  194s
+band_drop_all          raw clean/corr 0.6511/0.4239  ema0.99: 0.6793/0.4659 ema0.999: 0.7021/0.4671  210s
+augmix                 raw clean/corr 0.6660/0.3946  ema0.99: 0.6952/0.4326 ema0.999: 0.7043/0.4394  290s
+band_drop_all+augmix   raw clean/corr 0.6505/0.4735  ema0.99: 0.6729/0.5094 ema0.999: 0.6973/0.5062  356s
+Wrote results/phase3_pretrained/dtd__pretrained__lr3e-4__s2.json

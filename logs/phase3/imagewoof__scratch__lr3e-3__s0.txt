@@ -1,0 +1,6 @@
+finetune_pretrained | imagewoof classes=10 train=9025 val=3929 init=scratch lr=0.003 epochs=50 seed=0
+baseline               raw clean/corr 0.7429/0.3948  ema0.99: 0.8290/0.4611 ema0.999: 0.8277/0.4634  289s
+band_drop_all          raw clean/corr 0.7531/0.5936  ema0.99: 0.8124/0.6646 ema0.999: 0.8127/0.6627  356s
+augmix                 raw clean/corr 0.7765/0.5215  ema0.99: 0.8407/0.6199 ema0.999: 0.8391/0.6275  547s
+band_drop_all+augmix   raw clean/corr 0.7557/0.6484  ema0.99: 0.8152/0.7266 ema0.999: 0.8201/0.7361  720s
+Wrote results/phase3_pretrained/imagewoof__scratch__lr3e-3__s0.json

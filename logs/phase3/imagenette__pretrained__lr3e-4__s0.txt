@@ -1,0 +1,6 @@
+finetune_pretrained | imagenette classes=10 train=9469 val=3925 init=pretrained lr=0.0003 epochs=20 seed=0
+baseline               raw clean/corr 0.9085/0.6153  ema0.99: 0.9697/0.7270 ema0.999: 0.9781/0.7754  193s
+band_drop_all          raw clean/corr 0.9534/0.7997  ema0.99: 0.9646/0.8239 ema0.999: 0.9748/0.8591  210s
+augmix                 raw clean/corr 0.9488/0.6954  ema0.99: 0.9664/0.7786 ema0.999: 0.9727/0.8180  289s
+band_drop_all+augmix   raw clean/corr 0.9419/0.8581  ema0.99: 0.9552/0.8769 ema0.999: 0.9643/0.8898  356s
+Wrote results/phase3_pretrained/imagenette__pretrained__lr3e-4__s0.json
